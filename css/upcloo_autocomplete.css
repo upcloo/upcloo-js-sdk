@@ -1,0 +1,9 @@
+ul.upcloo_autocomplete {
+	position:absolute;
+	display:none;
+	z-index: 100000;
+	overflow:hidden;
+	margin:0px;
+	border:1px solid gray;
+	padding: 2% ;
+}
