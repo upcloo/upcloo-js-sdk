@@ -21,7 +21,16 @@
 		}
 	};
 	var _jsonp = function(url,q,callback){
-		
+		var js = document.createElement('script'),
+	    	first = document.getElementsByTagName('script')[0],
+	    	uniqCallback = new Date().getTime()+''+Math.floor(Math.random() * 10e4);
+		js.src = url + '?' + 'callback=upcloo_'+uniqCallback+'&'+q;
+		global['upcloo_'+uniqCallback] = function(json){
+			callback.call(this,json);
+		}
+		first.parentNode.insertBefore(js, first);
+		first.parentNode.removeChild(js);
+		delete global['upcloo_'+uniqCallback];
 	}
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
@@ -60,13 +69,18 @@
 		upCloo['utils'] = {
 			'curStyle'  : _getCurStyle,
 			'getOffset' : _getOffset,
-			'bind'		: _bind	
+			'bind'		: _bind,
+			'jsonp'		: _jsonp
 		};
 	}
 })(window == undefined ? this : window);
 (function(global){
-	var guid = 0;
-	
+	var guid = 0,
+		upCloo = global.upCloo,
+		_defaults = {
+		   jsonpBaseUrl:'http://127.0.0.1/upCloo.js/demo/autocomplete.php',
+		   
+		};
 	var _autocomplete = function (selector){
 			guid++;
 			return new _autocomplete.fn.init(selector,guid);
@@ -82,6 +96,7 @@
 			'bindEvt':function(){
 				var that = this;
 				upCloo.utils.bind(this.elem,'keydown',function(){
+					that.doAutocomplete();
 					that.showSuggest();
 				});
 				upCloo.utils.bind(this.elem,'blur',function(){
@@ -116,21 +131,33 @@
 				temp.style.width = (inputOffset.width - wpadding  ) + 'px';
 				temp.innerHTML = 'autocomplete '+ this.guid +' list placeholder';
 			},
+			'createSuggestLi': fuction(arr){
+				this.auto_elem.innerHTML = '';
+				while(arr.length){
+					var el = arr.pop();
+					var tmpLi = document.createElement('li');
+						tmpLi.innerHTML = tmpLi;
+					this.auto_elem.appendChild(tmpLi);
+					
+				}
+			},
+			'doAutocomplete':function(q){
+				var that = this;
+				upCloo.utils.jsonp(_defaults.jsonpBaseUrl,queryStr,function(){
+					
+				});
+			},
 			'showSuggest': function(){
-				
 				this.auto_elem.style.display = 'block';
 				this.setAutoElemOffset();
 			},
 			'hideSuggest': function(){
 				this.auto_elem.style.display = 'none';
-			},
-			'makeItLime': function(){
-				this.auto_elem.style.border = '1px solid lime';
 			}
 		};
 		_autocomplete.fn.init.prototype = _autocomplete.fn;
 	
 		if(global.hasOwnProperty('upCloo')){
-			upCloo['autocomplete'] = _autocomplete;
+			global.upCloo['autocomplete'] = _autocomplete;
 		}
 })(window == undefined ? this : window);
