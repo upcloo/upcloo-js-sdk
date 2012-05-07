@@ -21,8 +21,13 @@
 				returnVal = eventHandle.apply(elem,[evtObj,target]);
 				
 			if(!returnVal){
-				!!evtObj.preventDefault ? evtObj.preventDefault() :
-					(evtObj.returnValue = false && evtObj.cancelBubble = true)
+				if('preventDefault' in evtObj ){
+					evtObj.preventDefault();
+				} else{
+					evtObj.returnValue = false;
+					evtObj.cancelBubble = true;
+				}
+			
 			}
 			return returnVal;
 		};
@@ -37,14 +42,15 @@
 		var js = document.createElement('script'),
 	    	first = document.getElementsByTagName('script')[0],
 	    	uniqCallback = new Date().getTime()+''+Math.floor(Math.random() * 10e4);
-		js.src = url + '?' + 'callback=upcloo_'+uniqCallback+'&'+q;
+		js.src = url + '?' + 'callback=upcloo_'+uniqCallback;
 		global['upcloo_'+uniqCallback] = function(json){
+			
 			callback.call(this,json);
+			
 			delete global['upcloo_'+uniqCallback];
+			first.parentNode.removeChild(js);
 		}
-		first.parentNode.insertBefore(js, first);
-		first.parentNode.removeChild(js);
-		
+		first.parentNode.insertBefore(js, first);	
 	}
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
@@ -91,6 +97,14 @@
 		var currClassName = el.className;
 		el.className = currClassName.replace(new RegExp("(^|\\s+)" + cName + "(\\s+|$)"), ' ' );
 	}
+	var _index = function(el){
+		var n = -1;
+		for (var i = el.parentNode.childNodes.length; i >= 0; i--)
+		{
+		    if (el.parentNode.childNodes[i] === el){n = i; break; }
+		}
+		return n;
+	};
 	
 	if(global.hasOwnProperty('upCloo')){
 		upCloo['utils'] = {
@@ -100,7 +114,8 @@
 			'jsonp'		 : _jsonp,
 			'addClass'   : _addClass,
 			'removeClass': _removeClass,
-			'hasClass'   : _hasClass
+			'hasClass'   : _hasClass,
+			'index'		 : _index
 		};
 	}
 })(window == undefined ? this : window);
@@ -150,6 +165,7 @@
 				//delete
 				if(key == 8){
 					this.delayedComplete();
+					return true;
 				}
 				//enter 
 				if(key == 13){
@@ -176,7 +192,7 @@
 					        } else { nonChar = false; }
 					       return true; 
 					    } else { 
-					    	 if (nonChar) return;               
+					    	 if (nonChar) return true;               
 					        char = (evt.charCode) ?
 					                   evt.charCode : evt.keyCode;
 					        if (char> 31 && char <256)
@@ -190,13 +206,19 @@
 				upCloo.utils.bind(this.elem,'blur',function(){
 					that.hideSuggest();
 				});
-				upCloo.utils.bind(this.auto_elem,'click',function(e){
-					var target = e.target || e.srcElement;
+				upCloo.utils.bind(this.auto_elem,'mousedown',function(e,target){
 					if( upCloo.utils.hasClass(target,'autocomplete_item') ){
 						that.setSelected(target);
 					}
 					return true;
-				})
+				});
+				upCloo.utils.bind(this.auto_elem,'mousemove',function(e,target){
+					if( upCloo.utils.hasClass(target,'autocomplete_item') ){
+						that.currSelected = upCloo.utils.index(target);
+						that.markSelected();	
+					}
+					return true;
+				});
 				
 			},
 			'createSuggestDiv':function(){
@@ -224,6 +246,7 @@
 			},
 			'createSuggestLi': function(arr){
 				this.auto_elem.innerHTML = '';
+				
 				while(arr.length){
 					var currSuggest = arr.pop();
 					var tmpLi = document.createElement('li');
