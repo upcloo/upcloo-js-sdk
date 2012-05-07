@@ -17,8 +17,5 @@ ul.upcloo_autocomplete li{
 
 }
 ul.upcloo_autocomplete li.active_item{
-	background:gray;
-}
-ul.upcloo_autocomplete li:hover{
-	background:gray;
+	background:#D0D0D0;
 }
