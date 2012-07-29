@@ -25,3 +25,7 @@ clean:
 	@rm build/js/upcloo.min.js
 	@rmdir build/js
 	@rmdir build
+	
+force-clean:
+	echo "Force clean! PLEASE USE WITH CARE!"
+	rm -rf build
