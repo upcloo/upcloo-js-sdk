@@ -8,6 +8,8 @@ build:
 	@echo "${HR}\n"
 	@echo "Create \"build\" directory"
 	@mkdir -p build/js
+	@echo "Check the source code using \"jshint\""
+	@jshint js/*.js --config js/.jshintrc
 	@echo "Minify \"upcloo.js\" sourcecode"
 	@uglifyjs -nc js/upcloo.js > build/js/upcloo.min.tmp.js	
 	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 Corley, S.r.l..\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
