@@ -1,40 +1,34 @@
 #upcloo-js-sdk
 
-Autocomplete JavaScript library
+UpCloo JavaScript library
 
-## Make UpCloo JS SDK
+## Developers
 
-You need `nodejs` and `uglify-js`.
-
-Install `uglify-js`
-
-```shell
-npm install uglify-js
-```
-
-Download and install UglifyJS
+First of all you have to install a list of dependencies
 
 ```
-git clone git://github.com/mishoo/UglifyJS.git
+$ npm install expresso uglifyjs jshint recess -g
 ```
 
-Link the executable
+After that you can compile the library
 
 ```
-$ cd /usr/bin
-$ sudo ln -s ~/git/UglifyJS/bin/uglifyjs
+$ make
 ```
 
-### Compile
+The make process dependes on library sourcecode. JSHint check the 
+library before compile the source and minimize the code.
 
-Compile and minimize
+### Clean the library
 
-```
-make
-```
-
-Clean
+To clear the library compile use
 
 ```
-make clean
+$ make clean
+```
+
+Or to force the clean operation
+
+```
+$ make force-clean
 ```
