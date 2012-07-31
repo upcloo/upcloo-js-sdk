@@ -1,4 +1,4 @@
-//  About unsafe comparisons - When blocks omit {} - When code is not in strict mode
+//  About unsafe comparisons / When blocks omit {} / When code is not in strict mode
 (function(global){
 
 	var upCloo = {
