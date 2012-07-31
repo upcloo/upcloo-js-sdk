@@ -14,10 +14,10 @@
 <script type="text/javascript" src="./js/upcloo.js"></script>
 <script>
 window.onload = function(){
-	var el = document.querySelector('input'),
-		autocomplete = upCloo.autocomplete(el);
-	window.widget = autocomplete;
-		
+	var el = document.querySelector('input');
+		window.autocomplete = upCloo.autocomplete(el,{
+			'onSelectedItem':function(i,val){console.log('selected Item:',i,val);}
+		});		
 };
 </script>
 </body>

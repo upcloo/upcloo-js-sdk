@@ -1,25 +1,25 @@
 (function(global){
-	
+
 	var upCloo = {
-		'name' :'upCloo',
-		'version' : 1,
-		
+			'name' :'upCloo',
+			'version' : 1,
+
 	};
-	
+
 	if( global.hasOwnProperty('upCloo') ){ throw 'global upCloo var already defined !'; } 
 	global.upCloo = upCloo;
 
 })(window == undefined ? this : window);
 (function(global){
-	
+
 	var _bind = function(elem,type,eventHandle){
 		//handle ie && standard evt handling
 		var callback  = function(e){
-			console.log(e.type)
+
 			var evtObj = e || window.event;
-				target = evtObj.target || evtObj.srcElement,
-				returnVal = eventHandle.apply(elem,[evtObj,target]);
-				
+			target = evtObj.target || evtObj.srcElement,
+			returnVal = eventHandle.apply(elem,[evtObj,target]);
+
 			if(!returnVal){
 				if('preventDefault' in evtObj ){
 					evtObj.preventDefault();
@@ -27,11 +27,11 @@
 					evtObj.returnValue = false;
 					evtObj.cancelBubble = true;
 				}
-			
+
 			}
 			return returnVal;
 		};
-		
+
 		if ( elem.addEventListener ) {
 			elem.addEventListener( type,callback, false );
 		} else if ( elem.attachEvent ) {
@@ -40,49 +40,59 @@
 	};
 	var _jsonp = function(url,q,callback){
 		var js = document.createElement('script'),
-	    	first = document.getElementsByTagName('script')[0],
-	    	uniqCallback = new Date().getTime()+''+Math.floor(Math.random() * 10e4);
+		first = document.getElementsByTagName('script')[0],
+		uniqCallback = new Date().getTime()+''+Math.floor(Math.random() * 10e4);
 		js.src = url + '?' + 'callback=upcloo_'+uniqCallback;
 		global['upcloo_'+uniqCallback] = function(json){
-			
+
 			callback.call(this,json);
-			
+
 			delete global['upcloo_'+uniqCallback];
 			first.parentNode.removeChild(js);
 		}
 		first.parentNode.insertBefore(js, first);	
 	}
+	//check something for onload handling ie 7
+	var _script = function(url,done){
+		var js = document.createElement('script'),
+			first = document.getElementsByTagName('script')[0];
+		js.src = url;
+		js.onload = function(){
+			callback.call(this);
+		};
+		first.parentNode.insertBefore(js, first);
+	};
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
-	    try {
-	        box = elem.getBoundingClientRect();
-	    } catch(e) {}
-	    
-	    if (!box) {
-	        return  { top: 0,left: 0 };
-	    }
-	    var body = doc.body,
-	        win = document.defaultView || document.parentWindow,
-	        clientTop = docElem.clientTop || body.clientTop || 0,
-	        clientLeft = docElem.clientLeft || body.clientLeft || 0,
-	        scrollTop = win.pageYOffset ||  docElem.scrollTop || body.scrollTop,
-	        scrollLeft = win.pageXOffset || docElem.scrollLeft || body.scrollLeft,
-	        top = box.top + scrollTop - clientTop,
-	        left = box.left + scrollLeft - clientLeft;
+		try {
+			box = elem.getBoundingClientRect();
+		} catch(e) {}
 
-	    return {
-	        top: top,
-	        left: left,
-	        width: box.width,
-	        height: box.height
-	    };
+		if (!box) {
+			return  { top: 0,left: 0 };
+		}
+		var body = doc.body,
+		win = document.defaultView || document.parentWindow,
+		clientTop = docElem.clientTop || body.clientTop || 0,
+		clientLeft = docElem.clientLeft || body.clientLeft || 0,
+		scrollTop = win.pageYOffset ||  docElem.scrollTop || body.scrollTop,
+		scrollLeft = win.pageXOffset || docElem.scrollLeft || body.scrollLeft,
+		top = box.top + scrollTop - clientTop,
+		left = box.left + scrollLeft - clientLeft;
+
+		return {
+			top: top,
+			left: left,
+			width: box.width,
+			height: box.height
+		};
 	};
 	var _getCurStyle = function(el,styleProp){
 		if (el.currentStyle)
-	        var y = el.currentStyle[styleProp];
-	    else if (window.getComputedStyle)
-	        var y = document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
-	    return y;
+			var y = el.currentStyle[styleProp];
+		else if (window.getComputedStyle)
+			var y = document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
+		return y;
 	};
 	var _hasClass = function(el,cName){
 		return el.className.length > 0 && el.className.match(new RegExp("(^|\\s+)" + cName + "(\\s+|$)") );
@@ -101,42 +111,91 @@
 		var n = -1;
 		for (var i = el.parentNode.childNodes.length; i >= 0; i--)
 		{
-		    if (el.parentNode.childNodes[i] === el){n = i; break; }
+			if (el.parentNode.childNodes[i] === el){n = i; break; }
 		}
 		return n;
 	};
-	
+
 	if(global.hasOwnProperty('upCloo')){
 		upCloo['utils'] = {
-			'curStyle'   : _getCurStyle,
-			'getOffset'  : _getOffset,
-			'bind'		 : _bind,
-			'jsonp'		 : _jsonp,
-			'addClass'   : _addClass,
-			'removeClass': _removeClass,
-			'hasClass'   : _hasClass,
-			'index'		 : _index
+				'curStyle'   : _getCurStyle,
+				'getOffset'  : _getOffset,
+				'bind'		 : _bind,
+				'jsonp'		 : _jsonp,
+				'script'	 : _script,
+				'addClass'   : _addClass,
+				'removeClass': _removeClass,
+				'hasClass'   : _hasClass,
+				'index'		 : _index
 		};
 	}
 })(window == undefined ? this : window);
+
 (function(global){
 	var guid = 0,
-		upCloo = global.upCloo,
-		_defaults = {
-		   jsonpBaseUrl:'http://127.0.0.1/upCloo.js/demo/autocomplete.php',
-		   
-		};
-	var _autocomplete = function (selector){
-			guid++;
-			return new _autocomplete.fn.init(selector,guid);
-		}
-		_autocomplete.fn = _autocomplete.prototype = {
+	upCloo = global.upCloo,
+	_defaults = {
+			upClooSuggestEndpoint : './upcloo/suggest/',
+
+	};
+	var suggest = {
+			'currentWidget' : false,
+			'siteKey' : false,
+			'pagePermaLink' : false,
+			'endpoint' : _defaults.upClooSuggestEndpoint,
+			'init':function(siteKey,permaLink,widgetOpts){
+
+				this.setSiteKey(siteKey);
+				this.pagePermaLink = permaLink;
+				//hash with something the URL
+
+				//upCloo.utils.script(/* this.endpoint/ this.siteKey / this.permaLink .js*/)
+			},
+			'setWidget' : function(upClooWidget){
+				this.currentWidget = upClooWidget;
+				return this.currentWidget;
+			},
+			'getWidget' : function(){
+				return this.currentWidget;
+			},
+			'setSiteKey':function(siteKey){
+				this.siteKey = siteKey;
+				return this.siteKey;
+			},
+			'getSiteKey':function(){
+				return this.siteKey;
+			},
+			'getPermaLink':function(){
+				return this.pagePermaLink;
+			}
+	};
+
+})(window == undefined ? this : window);
+
+(function(global){
+	var guid = 0,
+	upCloo = global.upCloo,
+	_defaults = {
+			jsonpBaseUrl:'./demo/autocomplete.php',
+			onSelectedItem:function(){}
+	};
+	var _autocomplete = function (selector,opts){
+		guid++;
+		return new _autocomplete.fn.init(selector,guid,opts);
+	}
+	_autocomplete.fn = _autocomplete.prototype = {
 			'constructor': _autocomplete,
-			'init':	function (el,guid){
+			'init':	function (el,guid,options){
 				this.elem = el;
 				this.guid = guid;
+				this.isFocused = false;
 				this.selectedItemIdx = false;
 				this.currSelected = 0;
+				this.options = {};
+				for (i in _defaults) {
+					this.options[i] = i in options ? options[i] : _defaults[i] ;
+				}
+
 				this.createSuggestDiv();
 				this.bindEvt();
 				this.searchTimeout = false;
@@ -147,7 +206,7 @@
 			},
 			'setSelected':function(idx){
 				var liItems = this.auto_elem.childNodes;
-				this.elem.value = (typeof idx == 'number' ?  liItems[idx] : idx ).innerHTML;
+				return this.elem.value = (typeof idx == 'number' ?  liItems[idx] : idx ).innerHTML;
 			},
 			'handleNonChar':function(key){
 				//up
@@ -169,9 +228,11 @@
 				}
 				//enter 
 				if(key == 13){
-					if(this.currSelected !== false){
-						this.setSelected(this.currSelected);
+					if(this.currSelected !== false && this.isFocused == false){
+						var selectedData = this.setSelected(this.currSelected);
+						this.options.onSelectedItem.apply(this.elem,[this.currSelected,selectedData])
 						this.hideSuggest();
+
 					}
 					return false;
 				}
@@ -179,36 +240,41 @@
 			},
 			'bindEvt':function(){
 				var that = this,
-					nonChar = false,
-				    handleKey = function(evt) {
-					    var char;
-					    if (evt.type == "keydown") {
-					    	char = evt.keyCode;
-					        if (char <16 || (char> 16 && char <32) || 
-					           (char> 32 && char <41) || char == 46) {
-					        	var ret = that.handleNonChar.apply(that,[char]);
-					            	nonChar = true;
-					            return ret;
-					        } else { nonChar = false; }
-					       return true; 
-					    } else { 
-					    	 if (nonChar) return true;               
-					        char = (evt.charCode) ?
-					                   evt.charCode : evt.keyCode;
-					        if (char> 31 && char <256)
-					        	var ret = that.handleChar.apply(that,[char]); 
-					        return ret;
-					    }   
+				nonChar = false,
+				handleKey = function(evt) {
+					var char;
+					if (evt.type == "keydown") {
+						char = evt.keyCode;
+						if (char <16 || (char> 16 && char <32) || 
+								(char> 32 && char <41) || char == 46) {
+							var ret = that.handleNonChar.apply(that,[char]);
+							nonChar = true;
+							return ret;
+						} else { nonChar = false; }
+						return true; 
+					} else { 
+						if (nonChar) return true;               
+						char = (evt.charCode) ?
+								evt.charCode : evt.keyCode;
+						if (char> 31 && char <256)
+							var ret = that.handleChar.apply(that,[char]); 
+						return ret;
+					}   
 				};
-				
+
 				upCloo.utils.bind(this.elem,'keydown',handleKey);
 				upCloo.utils.bind(this.elem,'keypress',handleKey);
+				upCloo.utils.bind(this.elem,'focus',function(){
+					that.hasFocus = true;
+				});
 				upCloo.utils.bind(this.elem,'blur',function(){
+					that.hasFocus = false;
 					that.hideSuggest();
 				});
 				upCloo.utils.bind(this.auto_elem,'mousedown',function(e,target){
 					if( upCloo.utils.hasClass(target,'autocomplete_item') ){
-						that.setSelected(target);
+						var selectedData = that.setSelected(target);
+						that.options.onSelectedItem.apply(that.elem,[that.currSelected,selectedData])
 					}
 					return true;
 				});
@@ -219,12 +285,12 @@
 					}
 					return true;
 				});
-				
+
 			},
 			'createSuggestDiv':function(){
 				var temp = document.createElement('ul');
-					upCloo.utils.addClass(temp,'upcloo_autocomplete')
-					this.auto_elem = temp;
+				upCloo.utils.addClass(temp,'upcloo_autocomplete')
+				this.auto_elem = temp;
 				document.body.appendChild(temp);
 				return this;
 			},
@@ -237,8 +303,8 @@
 			},
 			'setAutoElemOffset':function(){
 				var temp = this.auto_elem,
-					inputOffset =  upCloo.utils.getOffset(this.elem,document,document.documentElement);
-					wpadding = this.get2BorderAndPadding(this.auto_elem);
+				inputOffset =  upCloo.utils.getOffset(this.elem,document,document.documentElement);
+				wpadding = this.get2BorderAndPadding(this.auto_elem);
 				temp.style.position = 'absolute';
 				temp.style.top = inputOffset.top + inputOffset.height + 'px';
 				temp.style.left = inputOffset.left + 'px';
@@ -246,18 +312,18 @@
 			},
 			'createSuggestLi': function(arr){
 				this.auto_elem.innerHTML = '';
-				
+
 				while(arr.length){
 					var currSuggest = arr.pop();
 					var tmpLi = document.createElement('li');
-						upCloo.utils.addClass(tmpLi,'autocomplete_item');
-						tmpLi.innerHTML = currSuggest;
+					upCloo.utils.addClass(tmpLi,'autocomplete_item');
+					tmpLi.innerHTML = currSuggest;
 					this.auto_elem.appendChild(tmpLi);
 				}
 			},
 			'delayedComplete':function(){
 				var that = this,
-					delay = this.searchTimeout == false ? 0 :200;
+				delay = this.searchTimeout == false ? 0 :200;
 				clearTimeout(this.searchTimeout);
 				this.searchTimeout = setTimeout(function(){
 					that.doAutocomplete();
@@ -265,12 +331,11 @@
 			},
 			'doAutocomplete':function(q){
 				var that = this,
-				    currVal = this.elem.value;
-				console.log('autocomplete for',currVal)
+				currVal = this.elem.value;
 				upCloo.utils.jsonp(_defaults.jsonpBaseUrl,'&q='+encodeURI(currVal),function(data){
 					that.createSuggestLi(data);
 					that.showSuggest();
-						
+
 				});
 			},
 			'showSuggest': function(){
@@ -286,17 +351,17 @@
 			},
 			'markSelected':function(){
 				var liItems = this.auto_elem.childNodes;
-					for(var l in liItems) upCloo.utils.removeClass(liItems[l],'active_item');
-						if(this.currSelected < 0) this.currSelected = liItems.length - 1; 
-						if(this.currSelected == liItems.length) this.currSelected = 0;
-										
-					upCloo.utils.addClass(liItems[this.currSelected],'active_item');
+				for(var l in liItems) upCloo.utils.removeClass(liItems[l],'active_item');
+				if(this.currSelected < 0) this.currSelected = liItems.length - 1; 
+				if(this.currSelected == liItems.length) this.currSelected = 0;
+
+				upCloo.utils.addClass(liItems[this.currSelected],'active_item');
 			}
-		};
-		
-		_autocomplete.fn.init.prototype = _autocomplete.fn;
-	
-		if(global.hasOwnProperty('upCloo')){
-			global.upCloo['autocomplete'] = _autocomplete;
-		}
+	};
+
+	_autocomplete.fn.init.prototype = _autocomplete.fn;
+
+	if(global.hasOwnProperty('upCloo')){
+		global.upCloo['autocomplete'] = _autocomplete;
+	}
 })(window == undefined ? this : window);
