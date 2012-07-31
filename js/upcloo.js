@@ -1,24 +1,25 @@
+//  About unsafe comparisons - When blocks omit {} - When code is not in strict mode
 (function(global){
 
 	var upCloo = {
 			'name' :'upCloo',
-			'version' : 1,
+			'version' : 1
 
 	};
 
 	if( global.hasOwnProperty('upCloo') ){ throw 'global upCloo var already defined !'; } 
 	global.upCloo = upCloo;
 
-})(window == undefined ? this : window);
+})(window === undefined ? this : window);
 (function(global){
 
 	var _bind = function(elem,type,eventHandle){
 		//handle ie && standard evt handling
 		var callback  = function(e){
 
-			var evtObj = e || window.event;
-			target = evtObj.target || evtObj.srcElement,
-			returnVal = eventHandle.apply(elem,[evtObj,target]);
+			var evtObj = e || window.event,
+			target = evtObj.target || evtObj.srcElement;
+			var returnVal = eventHandle.apply(elem,[evtObj,target]);
 
 			if(!returnVal){
 				if('preventDefault' in evtObj ){
@@ -49,21 +50,22 @@
 
 			delete global['upcloo_'+uniqCallback];
 			first.parentNode.removeChild(js);
-		}
+		};
 		first.parentNode.insertBefore(js, first);	
-	}
+	};
 	//check something for onload handling ie 7
 	var _script = function(url,done){
 		var js = document.createElement('script'),
 			first = document.getElementsByTagName('script')[0];
 		js.src = url;
 		js.onload = function(){
-			callback.call(this);
+			done.call(this);
 		};
 		first.parentNode.insertBefore(js, first);
 	};
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
+		var box;
 		try {
 			box = elem.getBoundingClientRect();
 		} catch(e) {}
@@ -88,10 +90,11 @@
 		};
 	};
 	var _getCurStyle = function(el,styleProp){
+		var y ;
 		if (el.currentStyle)
-			var y = el.currentStyle[styleProp];
+			y = el.currentStyle[styleProp];
 		else if (window.getComputedStyle)
-			var y = document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
+			y = document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
 		return y;
 	};
 	var _hasClass = function(el,cName){
@@ -103,10 +106,10 @@
 		return true;
 	};
 	var _removeClass = function(el,cName){
-		if(!el.className || el.className.length == 0)return;
+		if(!el.className || el.className.length === 0)return;
 		var currClassName = el.className;
 		el.className = currClassName.replace(new RegExp("(^|\\s+)" + cName + "(\\s+|$)"), ' ' );
-	}
+	};
 	var _index = function(el){
 		var n = -1;
 		for (var i = el.parentNode.childNodes.length; i >= 0; i--)
@@ -117,25 +120,25 @@
 	};
 
 	if(global.hasOwnProperty('upCloo')){
-		upCloo['utils'] = {
-				'curStyle'   : _getCurStyle,
-				'getOffset'  : _getOffset,
-				'bind'		 : _bind,
-				'jsonp'		 : _jsonp,
-				'script'	 : _script,
-				'addClass'   : _addClass,
-				'removeClass': _removeClass,
-				'hasClass'   : _hasClass,
-				'index'		 : _index
+	global.upCloo.utils = {
+				'curStyle'	: _getCurStyle,
+				'getOffset'	: _getOffset,
+				'bind'		: _bind,
+				'jsonp'		: _jsonp,
+				'script'	: _script,
+				'addClass'	: _addClass,
+				'removeClass'	: _removeClass,
+				'hasClass'	: _hasClass,
+				'index'		: _index
 		};
 	}
-})(window == undefined ? this : window);
+})(window === undefined ? this : window);
 
 (function(global){
 	var guid = 0,
 	upCloo = global.upCloo,
 	_defaults = {
-			upClooSuggestEndpoint : './upcloo/suggest/',
+			upClooSuggestEndpoint : './upcloo/suggest/'
 
 	};
 	var suggest = {
@@ -170,7 +173,7 @@
 			}
 	};
 
-})(window == undefined ? this : window);
+})(window === undefined ? this : window);
 
 (function(global){
 	var guid = 0,
@@ -182,7 +185,7 @@
 	var _autocomplete = function (selector,opts){
 		guid++;
 		return new _autocomplete.fn.init(selector,guid,opts);
-	}
+	};
 	_autocomplete.fn = _autocomplete.prototype = {
 			'constructor': _autocomplete,
 			'init':	function (el,guid,options){
@@ -192,8 +195,8 @@
 				this.selectedItemIdx = false;
 				this.currSelected = 0;
 				this.options = {};
-				for (i in _defaults) {
-					this.options[i] = i in options ? options[i] : _defaults[i] ;
+				for (var i in _defaults) {
+					if(_defaults.hasOwnProperty(i))this.options[i] = i in options ? options[i] : _defaults[i] ;
 				}
 
 				this.createSuggestDiv();
@@ -228,9 +231,9 @@
 				}
 				//enter 
 				if(key == 13){
-					if(this.currSelected !== false && this.isFocused == false){
+					if(this.currSelected !== false && this.isFocused === false){
 						var selectedData = this.setSelected(this.currSelected);
-						this.options.onSelectedItem.apply(this.elem,[this.currSelected,selectedData])
+						this.options.onSelectedItem.apply(this.elem,[this.currSelected,selectedData]);
 						this.hideSuggest();
 
 					}
@@ -243,11 +246,12 @@
 				nonChar = false,
 				handleKey = function(evt) {
 					var char;
+					var ret;
 					if (evt.type == "keydown") {
 						char = evt.keyCode;
 						if (char <16 || (char> 16 && char <32) || 
 								(char> 32 && char <41) || char == 46) {
-							var ret = that.handleNonChar.apply(that,[char]);
+							ret = that.handleNonChar.apply(that,[char]);
 							nonChar = true;
 							return ret;
 						} else { nonChar = false; }
@@ -257,7 +261,7 @@
 						char = (evt.charCode) ?
 								evt.charCode : evt.keyCode;
 						if (char> 31 && char <256)
-							var ret = that.handleChar.apply(that,[char]); 
+							ret = that.handleChar.apply(that,[char]); 
 						return ret;
 					}   
 				};
@@ -274,7 +278,7 @@
 				upCloo.utils.bind(this.auto_elem,'mousedown',function(e,target){
 					if( upCloo.utils.hasClass(target,'autocomplete_item') ){
 						var selectedData = that.setSelected(target);
-						that.options.onSelectedItem.apply(that.elem,[that.currSelected,selectedData])
+						that.options.onSelectedItem.apply(that.elem,[that.currSelected,selectedData]);
 					}
 					return true;
 				});
@@ -289,21 +293,22 @@
 			},
 			'createSuggestDiv':function(){
 				var temp = document.createElement('ul');
-				upCloo.utils.addClass(temp,'upcloo_autocomplete')
+				upCloo.utils.addClass(temp,'upcloo_autocomplete');
 				this.auto_elem = temp;
 				document.body.appendChild(temp);
 				return this;
 			},
 			'get2BorderAndPadding':function(el){
-				var old =  upCloo.utils.curStyle(el,'width');
+				var old = upCloo.utils.curStyle(el,'width');
 				el.style.width = '0px';
-				acOffsetWidth = upCloo.utils.getOffset(el,document,document.documentElement).width;
+				var acOffsetWidth = upCloo.utils.getOffset(el,document,document.documentElement).width;
+                          
 				el.style.width = upCloo.utils.curStyle(el,'width');
 				return acOffsetWidth;
 			},
 			'setAutoElemOffset':function(){
 				var temp = this.auto_elem,
-				inputOffset =  upCloo.utils.getOffset(this.elem,document,document.documentElement);
+				inputOffset =  upCloo.utils.getOffset(this.elem,document,document.documentElement),
 				wpadding = this.get2BorderAndPadding(this.auto_elem);
 				temp.style.position = 'absolute';
 				temp.style.top = inputOffset.top + inputOffset.height + 'px';
@@ -323,7 +328,7 @@
 			},
 			'delayedComplete':function(){
 				var that = this,
-				delay = this.searchTimeout == false ? 0 :200;
+				delay = this.searchTimeout === false ? 0 :200;
 				clearTimeout(this.searchTimeout);
 				this.searchTimeout = setTimeout(function(){
 					that.doAutocomplete();
@@ -351,7 +356,7 @@
 			},
 			'markSelected':function(){
 				var liItems = this.auto_elem.childNodes;
-				for(var l in liItems) upCloo.utils.removeClass(liItems[l],'active_item');
+				for(var l in liItems)if(liItems.hasOwnProperty(l))upCloo.utils.removeClass(liItems[l],'active_item');
 				if(this.currSelected < 0) this.currSelected = liItems.length - 1; 
 				if(this.currSelected == liItems.length) this.currSelected = 0;
 
@@ -362,6 +367,6 @@
 	_autocomplete.fn.init.prototype = _autocomplete.fn;
 
 	if(global.hasOwnProperty('upCloo')){
-		global.upCloo['autocomplete'] = _autocomplete;
+		global.upCloo.autocomplete = _autocomplete;
 	}
-})(window == undefined ? this : window);
+})(window === undefined ? this : window);
