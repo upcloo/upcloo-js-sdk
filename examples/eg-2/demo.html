@@ -11,14 +11,9 @@
 <p>
 <input type='text' id='searchBox' style='width:40%;'/>
 </p>
-<script type="text/javascript" src="../../js/upcloo.js"></script>
+<script type="text/javascript" src="../../build/js/upcloo.min.js"></script>
 <script>
-window.onload = function(){
-	var el = document.querySelector('input');
-		window.autocomplete = upCloo.autocomplete(el,{
-			'onSelectedItem':function(i,val){console.log('selected Item:',i,val);}
-		});		
-};
+	upCloo.suggest.init('MYSITEKEY',123456);
 </script>
 </body>
 </html>

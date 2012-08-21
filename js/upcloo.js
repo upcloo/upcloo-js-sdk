@@ -135,24 +135,36 @@
 })(window === undefined ? this : window);
 
 (function(global){
-	var guid = 0,
-	upCloo = global.upCloo,
-	_defaults = {
-			upClooSuggestEndpoint : './upcloo/suggest/'
-
-	};
+	var upCloo = global.upCloo,
+		_defaults ={
+			'noBeacon':false,
+			'upClooSuggestEndpoint':'./demo'
+		};
 	var suggest = {
 			'currentWidget' : false,
 			'siteKey' : false,
-			'pagePermaLink' : false,
-			'endpoint' : _defaults.upClooSuggestEndpoint,
-			'init':function(siteKey,permaLink,widgetOpts){
-
+			'pageId' : false,
+			'options':{},
+			'init':function(siteKey,pageId,options){
+				if(options){
+					for (var i in _defaults) {
+						if(_defaults.hasOwnProperty(i))
+							this.options[i] = (i in options )? options[i] : _defaults[i] ;
+					}
+				} else {
+					this.options = _defaults;
+				}
 				this.setSiteKey(siteKey);
-				this.pagePermaLink = permaLink;
+				this.pageId = pageId ;
+				
+				var hash = 'suggest.'+this.pageId+'.js';
 				//hash with something the URL
-
-				//upCloo.utils.script(/* this.endpoint/ this.siteKey / this.permaLink .js*/)
+					
+				upCloo.utils.script( this.options.upClooSuggestEndpoint + '/' + this.siteKey + '/' + hash ,function(){
+					//test for upCloo.suggest.getData()
+					console.log('upCloo suggest getData is now ready');
+					console.log('here is some correlation',upCloo.suggest.getData());
+				});
 			},
 			'setWidget' : function(upClooWidget){
 				this.currentWidget = upClooWidget;
@@ -168,10 +180,14 @@
 			'getSiteKey':function(){
 				return this.siteKey;
 			},
-			'getPermaLink':function(){
-				return this.pagePermaLink;
+			'getPageId':function(){
+				return this.pageId;
 			}
 	};
+	
+	if(global.hasOwnProperty('upCloo')){
+		global.upCloo.suggest = suggest;
+	}
 
 })(window === undefined ? this : window);
 
