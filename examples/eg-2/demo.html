@@ -3,7 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>UpCloo Js Library (Autocomplete)</title>
-<link href='./css/upcloo_autocomplete.css' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="../../css/upcloo.suggest.css" />
+<style type="text/css">
+html ,  body {
+padding:0px;
+margin:0px;	
+height:100%;
+}
+body {
+	background-color: #ffffff;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#8a878a)); /* Safari 4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #ffffff, #8a878a); /* Chrome 10+, Safari 5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(top, #ffffff, #8a878a); /* Firefox 3.6-15 */
+  background-image:      -o-linear-gradient(top, #ffffff, #8a878a); /* Opera 11.10-12.00 */
+  background-image:         linear-gradient(to bottom, #ffffff, #8a878a); /* Firefox 16+, IE10, Opera 12.50+ */
+}
+</style>
 </head>
 <body>
 <div style='display:block;height:200px'>
@@ -11,9 +26,34 @@
 <p>
 <input type='text' id='searchBox' style='width:40%;'/>
 </p>
-<script type="text/javascript" src="../../build/js/upcloo.min.js"></script>
 <script>
-	upCloo.suggest.init('MYSITEKEY',123456);
+(function(g,opts) {
+	 g.upCloo = g.upCloo || {};
+	 g.upCloo.bootStrap = opts;
+	var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    	s.src = '../../js/upcloo.js'
+	var n = document.getElementsByTagName('script')[0];
+    	n.parentNode.insertBefore(s,n);
+})(this,{"pageId" : "123456","siteKey" : "MYSITEKEY","opts":{
+	'sendBeacon':false,
+	"widget":{
+		'opts':{
+		 "headline":"Bella Gabry"
+			}
+		}
+	}
+});
 </script>
+<!-- 
+,"opts":
+			{'sendBeacon':false,
+				"widget":{
+					'opts':{
+					 "headline":"Bella Gabry"
+					}
+				}
+			}
+
+ -->
 </body>
 </html>

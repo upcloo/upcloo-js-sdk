@@ -1,14 +1,8 @@
 //  About unsafe comparisons / When blocks omit {} / When code is not in strict mode
 (function(global){
 
-	var upCloo = {
-			'name' :'upCloo',
-			'version' : 1
-
-	};
-
-	if( global.hasOwnProperty('upCloo') ){ throw 'global upCloo var already defined !'; } 
-	global.upCloo = upCloo;
+	global.upCloo.name = 'upCloo js SDK';
+	global.upCloo.version = 1;
 
 })(window === undefined ? this : window);
 (function(global){
@@ -61,6 +55,13 @@
 		js.onload = function(){
 			done.call(this);
 		};
+		if (js.readyState) {// readystate on js elem will exclude onload compatible browsers
+			js.onreadystatechange = function () { 
+				if (this.readyState == 'complete' || this.readyState == 'loaded') {
+					done.call(this);
+				}
+			};
+		}
 		first.parentNode.insertBefore(js, first);
 	};
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
@@ -137,8 +138,10 @@
 (function(global){
 	var upCloo = global.upCloo,
 		_defaults ={
-			'noBeacon':false,
-			'upClooSuggestEndpoint':'./demo'
+			'widget':{},
+			'sendBeacon': true,
+			'upClooSuggestEndpoint':'./demo',
+			'upClooBeaconEndpoint':'./demo/beacon.php'
 		};
 	var suggest = {
 			'currentWidget' : false,
@@ -157,13 +160,27 @@
 				this.setSiteKey(siteKey);
 				this.pageId = pageId ;
 				
-				var hash = 'suggest.'+this.pageId+'.js';
+				var that = this ,
+					hash = 'suggest.'+this.pageId+'.js';
 				//hash with something the URL
 					
 				upCloo.utils.script( this.options.upClooSuggestEndpoint + '/' + this.siteKey + '/' + hash ,function(){
-					//test for upCloo.suggest.getData()
-					console.log('upCloo suggest getData is now ready');
-					console.log('here is some correlation',upCloo.suggest.getData());
+					//better test neeeded for upCloo.suggest.getData()
+					if(upCloo.suggest.getData() != false ){
+						var widgetOpts = upCloo.suggest.widget; 
+						var renderer = upCloo.suggest.widget.popOver();
+							renderer.setData( upCloo.suggest.getData() );
+							if('widget' in that.options ){
+								renderer.setOptions(that.options.widget.opts );
+							}
+							renderer.render();
+					} else {
+						if(that.options.sendBeacon){
+							var beacon = new Image();
+								beacon.src = that.options.upClooBeaconEndpoint + '?' + ['k='+that.siteKey,'id='+t.pageId].join('&')
+						}
+					}
+					
 				});
 			},
 			'setWidget' : function(upClooWidget){
@@ -385,4 +402,61 @@
 	if(global.hasOwnProperty('upCloo')){
 		global.upCloo.autocomplete = _autocomplete;
 	}
+})(window === undefined ? this : window);
+
+(function(global){
+	
+	var upCloo = global.upCloo;
+		popOver = function(){
+			this.data = false;
+			this.options = {};
+			this.widgetElem = document.createElement('div');
+			this.widgetElemInDom = false;
+		};
+	popOver.prototype = {
+		'setOptions' :function(opts){
+			this.options = opts || {};
+		},
+		'setData' : function(dataObj){
+			this.data = dataObj;
+		},
+		'_makeLink':function(obj){ return '<a href="'+obj.url+'">'+obj.title+'</a>';},
+		'render' : function(){
+			var arr = this.data,
+				tmpRoot = this.widgetElem,
+				tmpHeadline = document.createElement('li'),	
+				tmpUl = document.createElement('ul');
+			upCloo.utils.addClass(tmpRoot,'upcloo-over');
+			upCloo.utils.addClass(tmpRoot,'upcloo-over-' + ('pos' in this.options ? this.options.pos : 'br'));
+			
+			if('headline' in this.options ){
+				tmpHeadline.innerHTML = this.options.headline;
+				upCloo.utils.addClass(tmpHeadline,'upcloo-over-title');
+				tmpRoot.appendChild(tmpHeadline);
+				
+			}
+			
+			for(var i=0; i < arr.length; i++){
+					var tmpLi = document.createElement('li');
+						
+					upCloo.utils.addClass(tmpLi,'upcloo-suggest_li');
+					tmpLi.innerHTML = this._makeLink(arr[i]);
+					tmpUl.appendChild(tmpLi);
+			}
+			tmpRoot.appendChild(tmpUl);
+			if(!this.widgetElemInDom){
+				document.getElementsByTagName('body')[0	].appendChild(this.widgetElem);
+				this.widgetElemInDom = true;
+			} 
+		}
+	};
+
+	if(global.hasOwnProperty('upCloo')){
+		'widget' in global.upCloo.suggest ? false : global.upCloo.suggest.widget = {};
+		global.upCloo.suggest.widget.popOver = function(){ return new popOver(); }
+	}
+})(window === undefined ? this : window);
+(function(global){
+var config = upCloo.bootStrap;
+	upCloo.suggest.init(config.siteKey,config.pageId,config.opts);
 })(window === undefined ? this : window);

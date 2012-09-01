@@ -1,0 +1,94 @@
+.upcloo-over {
+    width:280px;
+    padding:5px 10px;
+    position:fixed;
+    top:auto;    
+    left:auto;
+    bottom:auto;
+    right:auto;
+    z-index:99999;
+    display:block;
+    border: 1px solid #aaa;
+    background:#fff;
+    color: #000;
+
+}
+.upcloo-over-tl {
+    top:0;
+    left:0;  
+    border-width: 0 1px 1px 0;  
+	-moz-box-shadow: 3px 3px 3px black;
+	-webkit-box-shadow: 3px 3px 3px black;
+	box-shadow: 3px 3px 3px black; 
+    border-radius: 0 0 7px;
+	-webkit-border-radius: 0 0 7px;
+	-moz-border-radius: 0 0 7px;
+}
+.upcloo-over-tr {
+    top:0;
+    right:0;   
+    border-width: 0 0 1px 1px;   
+	-moz-box-shadow: -3px 3px 3px black;
+	-webkit-box-shadow: -3px 3px 3px black;
+	box-shadow: -3px 3px 3px black; 
+    border-radius: 0 0 0 7px;
+	-webkit-border-radius: 0 0 0 7px;
+	-moz-border-radius: 0 0 0 7px;
+}
+.upcloo-over-bl {
+    bottom:0;
+    left:0;  
+    border-width: 1px 1px 0 0;    
+	-moz-box-shadow: 3px -3px 3px black;
+	-webkit-box-shadow: 3px -3px 3px black;
+	box-shadow: 3px -3px 3px black; 
+    border-radius: 0 7px 0;
+	-webkit-border-radius: 0 7px 0;
+	-moz-border-radius: 0  7px 0;
+}
+.upcloo-over-br {
+    bottom:0;
+    right:0;  
+    border-width: 1px 0 0 1px;   
+	-moz-box-shadow: -3px -3px 3px black;
+	-webkit-box-shadow: -3px -3px 3px black;
+	box-shadow: -3px -3px 3px black; 
+    border-radius: 7px 0 0;
+	-webkit-border-radius: 7px 0 0;
+	-moz-border-radius: 7px 0 0;
+} 
+.upcloo-over ul, .upcloo-over li, .upcloo-over a {
+    width:100%;
+    clear:both;
+    display:inline-block;
+    padding:0;
+    margin:0;
+    border:0;
+    text-align:left;
+    background:#fff;
+    color:#000;
+    font-family:Arial,Verdana;
+}
+.upcloo-over li {
+    padding:5px 0;
+}
+.upcloo-over li.upcloo-over-title {
+    color:#555;
+    font-size:12px;
+    font-weight:normal;
+    text-decoration:none;
+    letter-spacing:1px;
+    word-spacing:0px;
+}
+.upcloo-over ul li a,.upcloo-over ul li a:hover,.upcloo-over ul li a:link,.upcloo-over ul li a:visited {
+    color:#000;
+    font-size:13px;
+    font-weight:normal;
+    text-decoration:none;
+    letter-spacing:0px;
+    word-spacing:0px;
+    font-weight:bold;
+}
+.upcloo-over ul li a:hover {
+    text-decoration:underline;
+}
