@@ -48,22 +48,42 @@
 		first.parentNode.insertBefore(js, first);	
 	};
 	//check something for onload handling ie 7
-	var _script = function(url,done){
+	var _script = function(url,done,timeout){
 		var js = document.createElement('script'),
-			first = document.getElementsByTagName('script')[0];
+			first = document.getElementsByTagName('script')[0],
+			tmRef = false,
+			isTimeout = false;
 		js.src = url;
+		if(timeout){
+			tmRef = setTimeout(function(){ 
+						isTimeout = true;
+						done.call(this);
+					},timeout * 1000);}
 		js.onload = function(){
-			done.call(this);
+			clearTimeout(tmRef);
+			isTimeout ? false : done.call(this);
 		};
 		if (js.readyState) {// readystate on js elem will exclude onload compatible browsers
 			js.onreadystatechange = function () { 
 				if (this.readyState == 'complete' || this.readyState == 'loaded') {
-					done.call(this);
+					clearTimeout(tmRef);
+					isTimeout ? false : done.call(this);
 				}
 			};
 		}
 		first.parentNode.insertBefore(js, first);
 	};
+	var _cssFile = function(url){
+		 var f = document.createElement("link");
+         f.setAttribute("rel", "stylesheet")
+         f.setAttribute("type", "text/css")
+         f.setAttribute("href", url);
+         
+         if(typeof f != "undefined"){
+        	 document.getElementsByTagName("head")[0].appendChild(f)
+ 			}
+		};
+	
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
 		var box;
@@ -193,10 +213,11 @@
 				'jsonp'		: _jsonp,
 				'script'	: _script,
 				'addClass'	: _addClass,
-				'removeClass'	: _removeClass,
+				'removeClass': _removeClass,
 				'hasClass'	: _hasClass,
 				'index'		: _index,
-				'base64'	: _base64
+				'base64'	: _base64,
+				'cssFile'   : _cssFile
 		};
 	}
 })(window === undefined ? this : window);
@@ -206,8 +227,9 @@
 		_defaults ={
 			'widget':{},
 			'sendBeacon': true,
-			'upClooSuggestEndpoint':'./demo',
-			'upClooBeaconEndpoint':'./demo/beacon.php'
+			'upClooSuggestEndpoint':'http://repository.upcloo.com',
+			'upClooBeaconEndpoint':'http://repository.upcloo.com',
+			'upClooAssetEndpoint':'http://repository.upcloo.com/a'
 		};
 	var suggest = {
 			'currentWidget' : false,
@@ -228,15 +250,18 @@
 				
 				var that = this ,
 					b64 = upCloo.utils.base64,
-					hash = 'suggest.'+b64.encode(this.pageId)+'.js';
+					hash = b64.encode(this.pageId)+'.js';
 					
-				//hash with something the URL
-					
+					//hash with something the URL
+				upCloo.utils.cssFile(this.options.upClooAssetEndpoint + '/' + 'u.css');	
 				upCloo.utils.script( this.options.upClooSuggestEndpoint + '/' + this.siteKey + '/' + hash ,function(){
 					//better test neeeded for upCloo.suggest.getData()
-					if(upCloo.suggest.getData() != false ){
-						var widgetOpts = upCloo.suggest.widget; 
-						var renderer = upCloo.suggest.widget.popOver();
+					console.log('script callback called')
+					if( 'getData' in upCloo.suggest && upCloo.suggest.getData() != false ){
+						var wName = 'widget' in that.options && 'type' in that.options.widget ? 
+									that.options.widget.type : 'popOver',
+							renderer = upCloo.suggest.widget[wName]();
+							
 							renderer.setData( upCloo.suggest.getData() );
 							if('widget' in that.options ){
 								renderer.setOptions(that.options.widget.opts );
@@ -245,11 +270,11 @@
 					} else {
 						if(that.options.sendBeacon){
 							var beacon = new Image();
-								beacon.src = that.options.upClooBeaconEndpoint + '?' + ['k='+that.siteKey,'id='+b64.encode(that.pageId)].join('&')
+								beacon.src = that.options.upClooBeaconEndpoint + '/?' + [ 'k='+that.siteKey,'id='+b64.encode(that.pageId) ].join('&')
 						}
 					}
 					
-				});
+				},1.5 );
 			},
 			'setWidget' : function(upClooWidget){
 				this.currentWidget = upClooWidget;
