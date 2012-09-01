@@ -1,1 +1,0 @@
-(function(g){ return "upCloo" in g && "suggest" in g.upCloo ? g.upCloo.suggest.getData = function(){ return false;} : false;})(this);
