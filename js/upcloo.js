@@ -272,7 +272,7 @@
 						
 						if(that.options.sendBeacon){
 							var beacon = new Image();
-								beacon.src = that.options.upClooBeaconEndpoint + '/?' + [ 'sitekey='+that.siteKey,'page='+b64.encode(that.pageId) ].join('&')
+								beacon.src = that.options.upClooBeaconEndpoint + '/' + that.siteKey + '/' + b64.encode(that.pageId)
 						}
 					}
 					
