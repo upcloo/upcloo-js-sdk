@@ -228,7 +228,8 @@
 			'widget':{},
 			'sendBeacon': true,
 			'upClooSuggestEndpoint':'http://repository.upcloo.com',
-			'upClooBeaconEndpoint':'http://repository.upcloo.com',
+												// test -> form Boostrap config opt 
+			'upClooBeaconEndpoint':'http://test.t.upcloo.com',
 			'upClooAssetEndpoint':'http://repository.upcloo.com/a'
 		};
 	var suggest = {
@@ -256,7 +257,7 @@
 				upCloo.utils.cssFile(this.options.upClooAssetEndpoint + '/' + 'u.css');	
 				upCloo.utils.script( this.options.upClooSuggestEndpoint + '/' + this.siteKey + '/' + hash ,function(){
 					//better test neeeded for upCloo.suggest.getData()
-					console.log('script callback called')
+					
 					if( 'getData' in upCloo.suggest && upCloo.suggest.getData() != false ){
 						var wName = 'widget' in that.options && 'type' in that.options.widget ? 
 									that.options.widget.type : 'popOver',
@@ -268,9 +269,10 @@
 							}
 							renderer.render();
 					} else {
+						
 						if(that.options.sendBeacon){
 							var beacon = new Image();
-								beacon.src = that.options.upClooBeaconEndpoint + '/?' + [ 'k='+that.siteKey,'id='+b64.encode(that.pageId) ].join('&')
+								beacon.src = that.options.upClooBeaconEndpoint + '/' + that.siteKey + '/' + b64.encode(that.pageId)
 						}
 					}
 					
@@ -526,7 +528,6 @@
 				tmpHeadline.innerHTML = this.options.headline;
 				upCloo.utils.addClass(tmpHeadline,'upcloo-over-title');
 				tmpRoot.appendChild(tmpHeadline);
-				
 			}
 			
 			for(var i=0; i < arr.length; i++){
