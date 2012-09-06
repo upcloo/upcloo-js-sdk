@@ -10,7 +10,7 @@ UpCloo JavaScript library
     g.upCloo = g.upCloo || {};
     g.upCloo.bootStrap = opts;
 	var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-    s.src = 'http://cnd.repository.upcloo.com/a/u.js'
+    s.src = 'http://cdn.repository.upcloo.com/a/u.js'
 	var n = document.getElementsByTagName('script')[0];
     n.parentNode.insertBefore(s,n);
 })(this,{
