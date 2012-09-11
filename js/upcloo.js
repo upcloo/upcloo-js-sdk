@@ -74,14 +74,14 @@
 		first.parentNode.insertBefore(js, first);
 	};
 	var _cssFile = function(url){
-		 var f = document.createElement("link");
-         f.setAttribute("rel", "stylesheet")
-         f.setAttribute("type", "text/css")
+		var f = document.createElement("link");
+         f.setAttribute("rel", "stylesheet");
+         f.setAttribute("type", "text/css");
          f.setAttribute("href", url);
          
          if(typeof f != "undefined"){
-        	 document.getElementsByTagName("head")[0].appendChild(f)
- 			}
+             document.getElementsByTagName("head")[0].appendChild(f);
+         }
 		};
 	
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
@@ -223,14 +223,14 @@
 })(window === undefined ? this : window);
 
 (function(global){
-	var upCloo = global.upCloo,
-		_defaults ={
+	var upCloo = global.upCloo;
+	
+	var	_defaults = {
 			'widget':{},
 			'sendBeacon': true,
-			'upClooSuggestEndpoint':'http://repository.upcloo.com',
-												// test -> form Boostrap config opt 
-			'upClooBeaconEndpoint':'http://test.t.upcloo.com',
-			'upClooAssetEndpoint':'http://repository.upcloo.com/a'
+			'upClooSuggestBase':'repository.upcloo.com',
+			'upClooBeaconBase':'t.upcloo.com',
+			'upClooAssetEndpoint':'//repository.upcloo.com/a'
 		};
 	var suggest = {
 			'currentWidget' : false,
@@ -246,6 +246,7 @@
 				} else {
 					this.options = _defaults;
 				}
+				
 				this.setSiteKey(siteKey);
 				this.pageId = pageId ;
 				
@@ -255,10 +256,10 @@
 					
 					//hash with something the URL
 				upCloo.utils.cssFile(this.options.upClooAssetEndpoint + '/' + 'u.css');	
-				upCloo.utils.script( this.options.upClooSuggestEndpoint + '/' + this.siteKey + '/' + hash ,function(){
+				upCloo.utils.script( this.options.upClooSuggestBase + '/' + this.siteKey + '/' + hash ,function(){
 					//better test neeeded for upCloo.suggest.getData()
 					
-					if( 'getData' in upCloo.suggest && upCloo.suggest.getData() != false ){
+					if( 'getData' in upCloo.suggest && upCloo.suggest.getData() !== false ){
 						var wName = 'widget' in that.options && 'type' in that.options.widget ? 
 									that.options.widget.type : 'popOver',
 							renderer = upCloo.suggest.widget[wName]();
@@ -272,7 +273,7 @@
 						
 						if(that.options.sendBeacon){
 							var beacon = new Image();
-								beacon.src = that.options.upClooBeaconEndpoint + '/' + that.siteKey + '/' + b64.encode(that.pageId)
+								beacon.src = that.options.upClooBeaconBase + '/' + that.siteKey + '/' + b64.encode(that.pageId)
 						}
 					}
 					
@@ -286,8 +287,17 @@
 				return this.currentWidget;
 			},
 			'setSiteKey':function(siteKey){
-				this.siteKey = siteKey;
-				return this.siteKey;
+				var repoToken = siteKey.split('-').length > 1 ?
+					siteKey.split('-')[0] : false;
+					
+					this.siteKey = siteKey;
+					
+					this.options.upClooSuggestBase = '//' +
+						(repoToken ? repoToken + '.' : '') + this.options.upClooSuggestBase;
+					this.options.upClooBeaconBase = '//' +
+						(repoToken ? repoToken : 'corley') + '.' + this.options.upClooBeaconBase;
+				
+					return this.siteKey;
 			},
 			'getSiteKey':function(){
 				return this.siteKey;
