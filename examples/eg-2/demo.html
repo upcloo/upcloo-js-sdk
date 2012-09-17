@@ -18,28 +18,21 @@ body {
   background-image:         linear-gradient(to bottom, #ffffff, #8a878a); /* Firefox 16+, IE10, Opera 12.50+ */
 }
 </style>
+<script>
+window.addEventListener("DOMContentLoaded", function () {
+    console.log(''+(+new Date())+': DOM Content Loaded');
+  });
+</script>
+
 </head>
 <body>
-<div style='display:block;height:200px'>
-</div>
-<p>
+
 <input type='text' id='searchBox' style='width:40%;'/>
+<p>
+<h4>this image is actually quite big (used for testing load time performance)</h4>
+<img height='400px' src='http://www.wallchan.com/images/sandbox/23573-big.jpg?b' />
 </p>
-<script>
-(function(g,opts) {
-	 g.upCloo = g.upCloo || {};
-	 g.upCloo.bootStrap = opts;
-	var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-    	s.src = '../../build/js/upcloo.min.js'
-	var n = document.getElementsByTagName('script')[0];
-    	n.parentNode.insertBefore(s,n);
-})(this,{"pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/","siteKey" : "it-xx00XXxxx","opts":{
-			"widget":{"opts":{"headline":"Belllaaaaaaaa :-)	"}}
-		}
-});
-</script>
-<!-- 
-found : http://my.custom.permalink.io
+<!-- found : http://my.custom.permalink.io
 not found : http://my.404.io
 
 {
@@ -65,5 +58,23 @@ not found : http://my.404.io
 			}
 
  -->
+ <script>
+(function(g,opts) {
+	 g.upCloo = g.upCloo || {};
+	 g.upCloo.bootStrap = opts;
+	var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    	s.src = '../../build/js/upcloo.min.js'
+	var n = document.getElementsByTagName('script')[0];
+    	n.parentNode.insertBefore(s,n);
+})(this,{
+	"pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/","siteKey" : "xx00XXxxx",
+	"opts":{
+		"sendBeacon":false,
+			"widget":{"opts":{"headline":"Belllaaaaaaaa :-)	"}
+			}
+		}
+});
+</script>
+
 </body>
 </html>

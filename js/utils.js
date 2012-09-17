@@ -132,6 +132,43 @@
 		}
 		return n;
 	};
+
+	
+	var _ready = function (doc) {
+        function dispatch() {
+            hasRun = 1;
+            for (var i = 0, l = queue.length; i < l; i++) queue[i]()
+        }
+        var hasRun = 0,
+        queue = [],
+        d, e, f = !1,
+        aElem = doc.createElement("a"),
+        dloaded = "DOMContentLoaded",
+        bind = "addEventListener",
+        ready = "onreadystatechange";
+        /^loade|c/.test(doc.readyState) && (hasRun = 1), 
+        doc[bind] && doc[bind](dloaded, me = function () {
+            doc.removeEventListener(dloaded, me, f), dispatch();
+        }, f ), aElem.doScroll && doc.attachEvent(ready, d = function () {
+
+            if(/^c/.test(doc.readyState)){doc.detachEvent(ready, d);dispatch();}
+        });
+        var check = aElem.doScroll ? function (callback) {
+            self != top ? hasRun ? callback() : queue.push(callback) : ! function () {
+                try {
+                    aElem.doScroll("left")
+                } catch (b) {
+                    return setTimeout(function () {
+                        check(callback)
+                    }, 50)
+                }
+                callback()
+            }()
+        } : function (callback) {
+            hasRun ? callback() : queue.push(callback)
+        };
+        return check;
+    }(document); 
 	var _base64 = {
 	 
 		// private property
@@ -198,6 +235,7 @@
 			return utftext;
 		}
 	};
+	
 	if(global.hasOwnProperty('upCloo')){
 	global.upCloo.utils = {
 				'curStyle'	: _getCurStyle,
@@ -210,7 +248,8 @@
 				'hasClass'	: _hasClass,
 				'index'		: _index,
 				'base64'	: _base64,
-				'cssFile'   : _cssFile
+				'cssFile'   : _cssFile,
+				'ready'		: _ready
 		};
 	}
 })(window === undefined ? this : window);
