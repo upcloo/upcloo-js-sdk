@@ -4,6 +4,7 @@
 	var	_defaults = {
 			'widget':{},
 			'sendBeacon': true,
+			'customCss':false,
 			'upClooSuggestBase':'repository.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//repository.upcloo.com/a'
@@ -14,27 +15,27 @@
 			'pageId' : false,
 			'options':{},
 			'init':function(siteKey,pageId,options){
+				var that = this,
+					b64 = upCloo.utils.base64,
+					hash = b64.encode(pageId) + '.js';
+				
 				if(options){
 					for (var i in _defaults) {
 						if(_defaults.hasOwnProperty(i))
 							this.options[i] = (i in options )? options[i] : _defaults[i] ;
 					}
 				} else {
+					//TO-DO add a _extends util to copy & extend e
 					this.options = _defaults;
 				}
-				
+				this.pageId = pageId;
+
 				this.setSiteKey(siteKey);
-				this.pageId = pageId ;
 				
-				var that = this ,
-					b64 = upCloo.utils.base64,
-					hash = b64.encode(this.pageId)+'.js';
-					
-					//hash with something the URL
-				upCloo.utils.cssFile(this.options.upClooAssetEndpoint + '/' + 'u.css');	
+				if(!this.options.customCss){
+					upCloo.utils.cssFile(this.options.upClooAssetEndpoint + '/' + 'u.css');	
+				}
 				upCloo.utils.script( this.options.upClooSuggestBase + '/' + this.siteKey + '/' + hash ,function(){
-					//better test neeeded for upCloo.suggest.getData()
-					
 					if( 'getData' in upCloo.suggest && upCloo.suggest.getData() !== false ){
 						var wName = 'widget' in that.options && 'type' in that.options.widget ? 
 									that.options.widget.type : 'popOver',
@@ -46,13 +47,10 @@
 							}
 							renderer.render();
 					} else {
-						
-						if(that.options.sendBeacon){
-							var beacon = new Image();
-								beacon.src = that.options.upClooBeaconBase + '/' + that.siteKey + '/' + b64.encode(that.pageId)
-						}
+						if(!that.options.sendBeacon)return;
+						var beacon = new Image();
+							beacon.src = that.options.upClooBeaconBase + '/' + that.siteKey + '/' + b64.encode(that.pageId)
 					}
-					
 				},1.5 );
 			},
 			'setWidget' : function(upClooWidget){
@@ -83,7 +81,7 @@
 			}
 	};
 	
-	if(global.hasOwnProperty('upCloo')){
+	if('upCloo' in global){
 		global.upCloo.suggest = suggest;
 	}
 
