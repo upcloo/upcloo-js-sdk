@@ -190,7 +190,7 @@
 
 	_autocomplete.fn.init.prototype = _autocomplete.fn;
 
-	if(global.hasOwnProperty('upCloo')){
+	if('upCloo' in global){
 		global.upCloo.autocomplete = _autocomplete;
 	}
 })(window === undefined ? this : window);

@@ -236,7 +236,7 @@
 		}
 	};
 	
-	if(global.hasOwnProperty('upCloo')){
+	if('upCloo' in global){
 	global.upCloo.utils = {
 				'curStyle'	: _getCurStyle,
 				'getOffset'	: _getOffset,

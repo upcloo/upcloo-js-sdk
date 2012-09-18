@@ -45,7 +45,7 @@
 		}
 	};
 
-	if(global.hasOwnProperty('upCloo')){
+	if('upCloo' in global){
 		'widget' in global.upCloo.suggest ? false : global.upCloo.suggest.widget = {};
 		global.upCloo.suggest.widget.popOver = function(){ return new popOver(); }
 	}
