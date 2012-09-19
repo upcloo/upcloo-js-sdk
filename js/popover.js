@@ -16,6 +16,20 @@
 			this.data = dataObj;
 		},
 		'_makeLink':function(obj){ return '<a href="'+obj.url+'">'+obj.title+'</a>';},
+		'_doScrollCheck': function(){
+			var that = this;
+			upCloo.utils.bind(window,'scroll',function(e) {
+				
+				var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+				nVScroll > 400 ? that.show() : that.hide();
+			});
+		},
+		'show': function(){
+			this.widgetElem.style.display = 'block';
+		},
+		'hide': function(){
+			this.widgetElem.style.display = 'none';
+		},
 		'render' : function(){
 			var arr = this.data,
 				tmpRoot = this.widgetElem,
@@ -38,10 +52,13 @@
 					tmpUl.appendChild(tmpLi);
 			}
 			tmpRoot.appendChild(tmpUl);
+			
 			if(!this.widgetElemInDom){
-				document.getElementsByTagName('body')[0	].appendChild(this.widgetElem);
+				document.getElementsByTagName('body')[0].appendChild(this.widgetElem);
 				this.widgetElemInDom = true;
 			} 
+			this.hide();
+			this._doScrollCheck();
 		}
 	};
 
