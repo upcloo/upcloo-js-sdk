@@ -12,7 +12,6 @@ build:
 	@jshint js/*.js --config js/.jshintrc
 	@echo "Minify \"upcloo.js\" sourcecode"
 	@cat js/base.js js/utils.js js/suggest.js js/autocomplete.js js/popover.js js/popover.js js/init.js > build/js/upcloo.all.js
-	@cp  build/js/upcloo.all.js build/js/u.js 
 	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
 	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 Corley, S.r.l..\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js
@@ -32,7 +31,6 @@ no-hint:
 	@echo "Check the source code using \"jshint\""
 	@echo "Minify \"upcloo.js\" sourcecode"
 	@cat js/base.js js/utils.js js/suggest.js js/autocomplete.js js/popover.js js/popover.js js/init.js > build/js/upcloo.all.js
-	@cp  build/js/upcloo.all.js build/js/u.js 
 	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
 	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 Corley, S.r.l..\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js
@@ -44,10 +42,17 @@ no-hint:
 	@echo "\033[32m${HR}\033[39m\n"	
 	
 clean:
-	@rm build/js/upcloo.min.js
+	@rm build/js/*
 	@rmdir build/js
 	@rmdir build
 	
 force-clean:
 	echo "Force clean! PLEASE USE WITH CARE!"
 	rm -rf build
+
+install :
+	@echo "\033[32m${HR}\033[39m\n"
+	s3cmd put build/js/upcloo.min.js s3://repository.upcloo.com/a/u.js
+	@echo "Install library on S3...       ${CHECK} Done"
+	@echo "\033[32m${HR}\033[39m\n"
+
