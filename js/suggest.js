@@ -40,10 +40,9 @@
 						var wName = 'widget' in that.options && 'type' in that.options.widget ? 
 									that.options.widget.type : 'popOver',
 							renderer = upCloo.suggest.widget[wName]();
-							
-							renderer.setData( upCloo.suggest.getData() );
+							renderer.setData(upCloo.suggest.getData());
 							if('widget' in that.options ){
-								renderer.setOptions(that.options.widget.opts );
+								renderer.setOptions(that.options.widget.opts);
 							}
 							renderer.render();
 					} else {
@@ -51,7 +50,7 @@
 						var beacon = new Image();
 							beacon.src = that.options.upClooBeaconBase + '/' + that.siteKey + '/' + b64.encode(that.pageId)
 					}
-				},1.5 );
+				},1.5);
 			},
 			'setWidget' : function(upClooWidget){
 				this.currentWidget = upClooWidget;

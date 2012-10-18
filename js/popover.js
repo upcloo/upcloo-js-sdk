@@ -34,7 +34,8 @@
 			var arr = this.data,
 				tmpRoot = this.widgetElem,
 				tmpHeadline = document.createElement('li'),	
-				tmpUl = document.createElement('ul');
+				tmpUl = document.createElement('ul'),
+				count = 'limit' in this.options ? parseInt(this.options.limit,10) : 3 ;
 			upCloo.utils.addClass(tmpRoot,'upcloo-over');
 			upCloo.utils.addClass(tmpRoot,'upcloo-over-' + ('pos' in this.options ? this.options.pos : 'br'));
 			
@@ -43,10 +44,9 @@
 				upCloo.utils.addClass(tmpHeadline,'upcloo-over-title');
 				tmpRoot.appendChild(tmpHeadline);
 			}
-			
-			for(var i=0; i < arr.length; i++){
-					var tmpLi = document.createElement('li');
-						
+			for(var i=0; i < count; i++){
+				if(arr[i] === undefined)break;
+				var tmpLi = document.createElement('li');
 					upCloo.utils.addClass(tmpLi,'upcloo-suggest_li');
 					tmpLi.innerHTML = this._makeLink(arr[i]);
 					tmpUl.appendChild(tmpLi);
