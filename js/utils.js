@@ -133,7 +133,33 @@
 		return n;
 	};
 
-	
+	var _$byClass = function(className){
+		var toArr = Array.prototype.slice;
+			if ('getElementsByClassName' in document){
+				return toArr.call(document.getElementsByClassName(className),0);
+			}
+			if ('querySelectorAll' in document){
+				return toArr.call(document.querySelectorAll('.'+className),0);
+			}
+		var elArray = [], 
+			tmp = document.getElementsByTagName("*") ,
+			regex = new RegExp( '(^|s)' + className + '(s|$)');
+			
+		for ( var i = 0; i < tmp.length; i++ ) {
+			if ( regex.test(tmp[i].className) )	elArray.push(tmp[i]);
+			}
+			return elArray;
+	};
+	var _clone = function me(obj){
+		var clone = {};
+        for(var i in obj) {
+            if(typeof(obj[i])=="object")
+                clone[i] = me(obj[i]);
+            else
+                clone[i] = obj[i];
+        }
+        return clone;
+	}
 	var _ready = function (doc) {
         function dispatch() {
             hasRun = 1;
@@ -249,7 +275,9 @@
 				'index'		: _index,
 				'base64'	: _base64,
 				'cssFile'   : _cssFile,
-				'ready'		: _ready
+				'ready'		: _ready,
+				'$byClass'  : _$byClass,
+				'clone'		: _clone
 		};
 	}
 })(window === undefined ? this : window);

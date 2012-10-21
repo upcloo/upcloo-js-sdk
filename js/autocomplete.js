@@ -22,7 +22,6 @@
 				for (var i in _defaults) {
 					if(_defaults.hasOwnProperty(i))this.options[i] = i in options ? options[i] : _defaults[i] ;
 				}
-
 				this.createSuggestDiv();
 				this.bindEvt();
 				this.searchTimeout = false;
