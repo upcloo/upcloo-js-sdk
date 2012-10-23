@@ -9,7 +9,7 @@
 			'limit':3,
 			'headline':false,
 			'type':'popOver',
-			'theme':'grey',
+			'theme':'grey' ,
 			'upClooSuggestBase':'repository.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//repository.upcloo.com/a'
