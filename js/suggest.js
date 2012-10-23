@@ -9,6 +9,7 @@
 			'limit':3,
 			'headline':false,
 			'type':'popOver',
+			'theme':'grey',
 			'upClooSuggestBase':'repository.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//repository.upcloo.com/a'
@@ -18,6 +19,7 @@
 			this.siteKey = false;
 			this.pageId = false;
 			this.vSiteKey = false;
+			this.repoToken = false;
 			this.options = {};
 			this.domElem = domElem;
 			var that = this,
@@ -49,12 +51,16 @@
 				var callback = that.getVSiteKey() ? 'getExtraData' : 'getData';
 				if( callback in upCloo.suggest && upCloo.suggest[callback]() !== false ){
 					var wName = that.options.type,
-						renderer = upCloo.widgets[wName](that.domElem);
-					
-					renderer.setData(upCloo.suggest[callback]());
-					
+						renderer = upCloo.widgets[wName](that.domElem),
+						data = upCloo.suggest[callback](),
+						hasImage = false;
+					for(var i =0; i< data.length; i++){
+						if('image' in data[i] && data[i].image )hasImage = true;
+						data[i].trackUrl = "http://"+that.repoToken+".c.upcloo.com/"+that.getSiteKey()+"/"+hash;
+					}
+					renderer.setData(data);
 					renderer.setOptions(that.options);
-				
+					renderer.setHasImage(hasImage)
 					renderer.render();
 				} else {
 					if(!that.options.sendBeacon)return;
@@ -77,6 +83,7 @@
 						siteKey.split('-')[0] : false;
 
 						this.siteKey = siteKey;
+						this.repoToken = repoToken;
 						this.options.upClooSuggestBase = '//' +
 						(repoToken ? repoToken + '.' : '') + this.options.upClooSuggestBase;
 						this.options.upClooBeaconBase = '//' +
