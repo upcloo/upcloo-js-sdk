@@ -10,12 +10,14 @@ build:
 	@mkdir -p build/js
 	@echo "Check the source code using \"jshint\""
 	@jshint js/*.js --config js/.jshintrc
-	@echo "Minify \"upcloo.js\" sourcecode"
+	@echo "Minify \"upcloo.js\" sourcecode...       ${CHECK} Done"
 	@cat js/base.js js/utils.js js/suggest.js js/autocomplete.js js/popover.js js/popover.js js/init.js > build/js/upcloo.all.js
 	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
-	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 Corley, S.r.l..\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
+	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 UpCloo Ltd.\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js
-	@echo "Clear the \"build\" folder"
+	@echo "Compressing library...       ${CHECK} Done"
+	@gzip -c build/js/upcloo.min.js > build/js/upcloo.min.js.gz
+	@echo "Clear the \"build\" folder...       ${CHECK} Done"
 	@rm build/js/copyright.js build/js/upcloo.min.tmp.js
 	@echo "Compiling and minifying javascript...       ${CHECK} Done"
 	@echo "\n\033[32m${HR}\033[39m"
@@ -32,9 +34,11 @@ no-hint:
 	@echo "Minify \"upcloo.js\" sourcecode"
 	@cat js/base.js js/utils.js js/suggest.js js/autocomplete.js js/popover.js js/popover.js js/init.js > build/js/upcloo.all.js
 	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
-	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 Corley, S.r.l..\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
+	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 UpCloo Ltd.\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js
-	@echo "Clear the \"build\" folder"
+	@echo "Compressing library...       ${CHECK} Done\n"
+	@gzip -c build/js/upcloo.min.js > build/js/upcloo.min.js.gz
+	@echo "Clear the \"build\" folder...       ${CHECK} Done\n"
 	@rm build/js/copyright.js build/js/upcloo.min.tmp.js
 	@echo "Compiling and minifying javascript...       ${CHECK} Done"
 	@echo "\n\033[32m${HR}\033[39m"
@@ -49,10 +53,4 @@ clean:
 force-clean:
 	echo "Force clean! PLEASE USE WITH CARE!"
 	rm -rf build
-
-install :
-	@echo "\033[32m${HR}\033[39m\n"
-	s3cmd put build/js/upcloo.min.js s3://repository.upcloo.com/a/u.js
-	@echo "Install library on S3...       ${CHECK} Done"
-	@echo "\033[32m${HR}\033[39m\n"
 
