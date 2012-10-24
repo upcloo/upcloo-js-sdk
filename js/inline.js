@@ -35,6 +35,7 @@
 				count = 'limit' in this.options ? parseInt(this.options.limit,10) : 3 ;
 				
 			upCloo.utils.addClass(this.widgetElem,'upcloo-inline');
+			upCloo.utils.addClass(this.widgetElem,'upcloo-widget');
 			//has thumb 
 			if(this.hasImage)upCloo.utils.addClass(this.widgetElem,'upcloo-img');
 			if(this.options.headline ){
