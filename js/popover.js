@@ -7,6 +7,7 @@
 			this.widgetElem = document.createElement('div');
 			this.hasImage = false;
 			this.widgetElemInDom = false;
+			this.isAnimate = false;
 		};
 	popOver.prototype = {
 		'setOptions' :function(opts){
@@ -28,16 +29,20 @@
 			var that = this;
 			upCloo.utils.bind(window,'scroll',function(e) {
 				var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
-				nVScroll > 400 ? that.show() : that.hide() ;
+				nVScroll > 400 ? that.show() : false;
+				nVScroll < 100 ? that.hide() : false;
 			});
 		},
 		'hidden': function(){
 			return this.widgetElem.style.display == 'none';
 		},
 		'show': function(){
+			
 			this.widgetElem.style.display = 'block';
 		},
 		'hide': function(){
+
+			console.log('hide');
 			this.widgetElem.style.display = 'none';
 		},
 		'setHasImage':function(yesno){

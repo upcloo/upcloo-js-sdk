@@ -55,14 +55,17 @@
 						renderer = upCloo.widgets[wName](that.domElem),
 						data = upCloo.suggest[callback](),
 						hasImage = false;
+					that.renderer = renderer;
+					if(data.length === 0)return false;
 					for(var i =0; i< data.length; i++){
 						if('image' in data[i] && data[i].image )hasImage = true;
 						data[i].trackUrl = "http://"+that.repoToken+".c.upcloo.com/"+that.getSiteKey()+"/"+b64.encode(data[i].url);
 					}
-					renderer.setData(data);
-					renderer.setOptions(that.options);
-					renderer.setHasImage(hasImage && that.options.showImage)
-					renderer.render();
+						renderer.setData(data);
+						renderer.setOptions(that.options);
+						renderer.setHasImage(hasImage && that.options.showImage)
+						renderer.render();
+					
 				} else {
 					if(!that.options.sendBeacon)return;
 					var beacon = new Image();
