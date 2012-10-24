@@ -60,7 +60,7 @@
 			if(this.hasImage)upCloo.utils.addClass(this.widgetElem,'upcloo-img');
 			if('headline' in this.options && this.options.headline ){
 				tmpHeadline.innerHTML = this.options.headline;
-				tmpRoot.appendChild(tmpHeadline);
+				tmpUl.appendChild(tmpHeadline);
 			}
 			for(var i=0; i < count; i++){
 				if(arr[i] === undefined)break;
