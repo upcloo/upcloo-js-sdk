@@ -5,19 +5,32 @@ UpCloo JavaScript library
 ## Snippet
 
 ```html
+<!-- UPCLOO JS SDK START -->
+<div class='upcloo-suggest-widget'></div>
 <script>
-(function(g,opts) {
-    g.upCloo = g.upCloo || {};
-    g.upCloo.bootStrap = opts;
-	var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-    s.src = '//cdn.repository.upcloo.com/a/u.js'
-	var n = document.getElementsByTagName('script')[0];
-    n.parentNode.insertBefore(s,n);
-})(this,{
-    "pageId": "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/",
-    "siteKey": "xx00XXxxx"
-});
+(function(g,d,id){
+  upCloo = g.upCloo || [];
+  upCloo.push(
+    {
+      "pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/",
+      "siteKey" : "xx00XXxxx","vSiteKey":"ss00SSsss",
+      "opts": {
+        "pos":"br",
+        "type":"popOver",
+        "headline":"Your powerful headline!",
+        "limit":5,
+        "theme": "light"
+      }
+    }
+  );
+  var s = d.createElement('script') , n = d.getElementsByTagName('script')[0];
+  s.type = 'text/javascript';
+  s.async = true;s.id = id;
+  s.src = '../../build/js/u.js';
+  !d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;
+})(this,document,'upcloo_js_sdk')
 </script>
+<!-- UPCLOO JS SDK END -->
 ```
 
 ## Developers
