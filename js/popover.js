@@ -1,4 +1,3 @@
-
 (function(global){
 	
 	var upCloo = global.upCloo;
@@ -20,7 +19,7 @@
 			
 			var link = document.createElement('a');
 				link.setAttribute('href',obj.url),
-				hasImg = 'image' in obj && obj.image.length > 0;
+				hasImg = 'image' in obj  && this.hasImage && obj.image.length > 0;
 			link.innerHTML = hasImg ? "<img src='"+obj.image+"' alt='' border='0'/>"+obj.title : obj.title ;
 			upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
 			return link;
