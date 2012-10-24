@@ -41,7 +41,7 @@
 			if(this.options.headline ){
 				tmpHeadline.innerHTML = this.options.headline;
 				upCloo.utils.addClass(tmpHeadline,'upcloo-inline-title');
-				this.widgetElem.appendChild(tmpHeadline);
+				this.tmpUl.appendChild(tmpHeadline);
 			}
 			for(var i=0; i < count; i++){
 				if(arr[i] === undefined)break;
