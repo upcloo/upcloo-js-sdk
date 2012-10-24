@@ -50,6 +50,7 @@
 				tmpUl = document.createElement('ul'),
 				count = 'limit' in this.options ? parseInt(this.options.limit,10) : 3 ;
 			upCloo.utils.addClass(tmpRoot,'upcloo-over');
+			upCloo.utils.addClass(tmpRoot,'upcloo-widget');
 			//pos
 			upCloo.utils.addClass(tmpRoot,'upcloo-over-' + ('pos' in this.options ? this.options.pos : 'br'));
 			//theme
