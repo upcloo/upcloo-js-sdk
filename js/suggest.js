@@ -57,7 +57,7 @@
 						hasImage = false;
 					for(var i =0; i< data.length; i++){
 						if('image' in data[i] && data[i].image )hasImage = true;
-						data[i].trackUrl = "http://"+that.repoToken+".c.upcloo.com/"+that.getSiteKey()+"/"+hash;
+						data[i].trackUrl = "http://"+that.repoToken+".c.upcloo.com/"+that.getSiteKey()+"/"+b64.encode(data[i].url);
 					}
 					renderer.setData(data);
 					renderer.setOptions(that.options);
