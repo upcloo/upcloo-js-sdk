@@ -61,7 +61,7 @@
 					}
 					renderer.setData(data);
 					renderer.setOptions(that.options);
-					renderer.setHasImage(hasImage && this.options.showImage)
+					renderer.setHasImage(hasImage && that.options.showImage)
 					renderer.render();
 				} else {
 					if(!that.options.sendBeacon)return;
