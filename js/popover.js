@@ -42,7 +42,7 @@
 		},
 		'hide': function(){
 
-			console.log('hide');
+		
 			this.widgetElem.style.display = 'none';
 		},
 		'setHasImage':function(yesno){
