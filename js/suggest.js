@@ -11,7 +11,7 @@
 			'type':'popOver',
 			'theme':'grey' ,
 			'showImage':false,
-			'upClooSuggestBase':'repository.upcloo.com',
+			'upClooSuggestBase':'r.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//repository.upcloo.com/a'
 		};
