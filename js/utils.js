@@ -1,5 +1,6 @@
 (function(global){
-
+	var _boundDecorator = [];
+	
 	var _bind = function(elem,type,eventHandle){
 		//handle ie && standard evt handling
 		var callback  = function(e){
@@ -25,7 +26,27 @@
 		} else if ( elem.attachEvent ) {
 			elem.attachEvent( "on" + type, callback );
 		}
+		_boundDecorator.push([callback,eventHandle]);
 	};
+	
+	var _unbind =function(elem, type, handle ){
+		
+			var vanillaUnbind = document.removeEventListener ?
+					function( elem, type, handle ) {
+						if ( elem.removeEventListener ) {
+							elem.removeEventListener( type, handle, false );
+					}
+				} : function( elem, type, handle ) {
+					if ( elem.detachEvent ) {
+						elem.detachEvent( "on" + type, handle );
+					}
+				},
+				currCallback = false;
+			for(var i=0; i < _boundDecorator.length;i++){
+				if(_boundDecorator[i][1] == handle)currCallback = _boundDecorator[i][0];
+			}	
+			vanillaUnbind(elem,type,currCallback)
+	}
 	var _jsonp = function(url,q,callback){
 		var js = document.createElement('script'),
 		first = document.getElementsByTagName('script')[0],
@@ -267,6 +288,7 @@
 				'curStyle'	: _getCurStyle,
 				'getOffset'	: _getOffset,
 				'bind'		: _bind,
+				'unbind'	: _unbind,
 				'jsonp'		: _jsonp,
 				'script'	: _script,
 				'addClass'	: _addClass,
