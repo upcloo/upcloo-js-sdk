@@ -21,7 +21,7 @@
 			var link = document.createElement('a');
 				link.setAttribute('href',obj.url),
 				imageSrc = obj.image.length > 0 ? obj.image : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-			link.innerHTML = this.hasImg ? "<img src='"+imageSrc"' alt='' border='0'/>"+obj.title : obj.title ;
+			link.innerHTML = this.hasImg ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
 			upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
 			return link;
 		},
