@@ -63,7 +63,6 @@
 			this.widgetElem.style.display = 'block';
 		},
 		'hide': function(){
-			
 			this.widgetElem.style.opacity = 0;
 			this.widgetElem.style.filter = 'alpha(opacity=0)'
 			this.widgetElem.style.display = 'none';

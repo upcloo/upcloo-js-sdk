@@ -156,12 +156,15 @@
 
 	var _$byClass = function(className){
 		var toArr = Array.prototype.slice;
-			if ('getElementsByClassName' in document){
-				return toArr.call(document.getElementsByClassName(className),0);
+			if(! ('documentMode' in document && document.documentMode == 8 && !('msPerformance' in window)) ){
+				if ('getElementsByClassName' in document){
+					return toArr.call(document.getElementsByClassName(className),0);
+				}
+				if ('querySelectorAll' in document){
+					return toArr.call(document.querySelectorAll('.'+className),0);
+				}
 			}
-			if ('querySelectorAll' in document){
-				return toArr.call(document.querySelectorAll('.'+className),0);
-			}
+			
 		var elArray = [], 
 			tmp = document.getElementsByTagName("*") ,
 			regex = new RegExp( '(^|s)' + className + '(s|$)');

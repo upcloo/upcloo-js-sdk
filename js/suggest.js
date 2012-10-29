@@ -13,7 +13,7 @@
 			'showImage':false,
 			'upClooSuggestBase':'repository.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
-			'upClooAssetEndpoint':'//repository.upcloo.com/a'
+			'upClooAssetEndpoint':'//r.upcloo.com/a'
 		};
 	var Suggest = function(siteKey,pageId,vSiteKey,options,domElem){
 			this.currentWidget = false;
