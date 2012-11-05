@@ -20,7 +20,7 @@
 			
 			var link = document.createElement('a');
 				link.setAttribute('href',obj.url),
-				imageSrc = obj.image.length > 0 ? obj.image : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+				imageSrc = obj.image.length > 0 ? obj.image : this.options.defaultImage;
 				
 				link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
 			upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
@@ -32,8 +32,8 @@
 			var handle = function(e) {
 				
 				var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
-				nVScroll > 400 ? that.show() : false;
-				nVScroll < 100 ? that.hide() : false;
+				nVScroll > that.options.popIn ? that.show() : false;
+				nVScroll < that.options.popOut ? that.hide() : false;
 			};
 			that.refScrollHandler = handle;
 			upCloo.utils.bind(window,'scroll',handle);
