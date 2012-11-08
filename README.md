@@ -33,6 +33,40 @@ UpCloo JavaScript library
 <!-- UPCLOO JS SDK END -->
 ```
 
+## Options
+
+ * SDK Options
+   * `pos`
+     * Position of the popover
+       * [br,bl,tl,tr]
+       * Bottom right, bottom left, top left, top right
+   * `type`
+     * Type of widget
+       * [popOver, inline]
+       * Show widget as popover or inline in the page
+   * `sendBeacon`
+     * Mark this page status
+       * [true, false]
+       * Send beacons to UpCloo (Notifies new contents)
+   * `headline`
+     * Write a new headline (Maybe you're also interesetd in')
+      * [string]
+   * `theme`
+     * Select a theme
+      * [light, basic, strip]
+   * `showImage`
+     * Show images and titles
+      * [true, false]
+   * `defaultImage`
+     * In case of missing image use this as default
+      * [URL]
+   * `popIn`
+     * Distance in px from the corner to show upcloo popover
+      * [int]
+   * `popOut`
+     * Distance in px from the corner to hide upcloo popover
+      * [int]
+
 ## Developers
 
 First of all you have to install a list of dependencies
