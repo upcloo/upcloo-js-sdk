@@ -19,10 +19,17 @@
 
 			var link = document.createElement('a');
 				link.setAttribute('href',obj.url),
+				that = this,
 				imageSrc = obj.image.length > 0 ? obj.image : this.options.defaultImage;
 				
 				link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
-			upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
+				upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
+				upCloo.utils.bind(link,'click',function(){
+					if('_gaq' in global && typeof global._gaq.push == 'function'){
+						global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'inline',that.options.theme]);
+					}
+					return true;
+				});
 			return link;
 		},
 		'setHasImage':function(yesno){
@@ -50,6 +57,9 @@
 					tmpUl.appendChild(tmpLi);
 			}
 			this.widgetElem.appendChild(tmpUl);
+			if('_gaq' in global && typeof global._gaq.push == 'function'){
+				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'inline',this.options.theme]);
+			}
 		}
 	};
 
