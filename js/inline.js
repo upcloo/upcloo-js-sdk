@@ -57,7 +57,7 @@
 					tmpUl.appendChild(tmpLi);
 			}
 			this.widgetElem.appendChild(tmpUl);
-			if(that.options.ga && '_gaq' in global && typeof global._gaq.push == 'function'){
+			if(this.options.ga && '_gaq' in global && typeof global._gaq.push == 'function'){
 				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'inline',this.options.theme]);
 			}
 		}
