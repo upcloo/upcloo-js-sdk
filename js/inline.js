@@ -25,7 +25,7 @@
 				link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
 				upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
 				upCloo.utils.bind(link,'click',function(){
-					if('_gaq' in global && typeof global._gaq.push == 'function'){
+					if(that.options.ga && '_gaq' in global && typeof global._gaq.push == 'function'){
 						global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'inline',that.options.theme]);
 					}
 					return true;
@@ -57,7 +57,7 @@
 					tmpUl.appendChild(tmpLi);
 			}
 			this.widgetElem.appendChild(tmpUl);
-			if('_gaq' in global && typeof global._gaq.push == 'function'){
+			if(that.options.ga && '_gaq' in global && typeof global._gaq.push == 'function'){
 				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'inline',this.options.theme]);
 			}
 		}
