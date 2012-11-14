@@ -10,6 +10,7 @@
 			'headline':false,
 			'type':'popOver',
 			'theme':'grey' ,
+			'ga':false,
 			'showImage':false,
 			'popIn':400,
 			'popOut':100,
