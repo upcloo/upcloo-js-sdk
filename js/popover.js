@@ -28,7 +28,7 @@
 			upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
 			upCloo.utils.bind(link,'click',function(){
 				if(that.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-					global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'popOver',that.options.theme]);
+					global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'popOver'+that.options.theme]);
 				}
 				return true;
 			});
@@ -72,7 +72,7 @@
 			this.widgetElem.style.display = 'block';
 			if(that.options.ga === true && !that.trackShow && '_gaq' in global && typeof global._gaq.push == 'function'){
 				that.trackShow = true;
-				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'popOver',that.options.theme]);
+				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'popOver'+that.options.theme]);
 			}
 		},
 		'hide': function(){
