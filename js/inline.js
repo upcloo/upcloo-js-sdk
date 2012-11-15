@@ -26,7 +26,7 @@
 				upCloo.utils.bind(link,'click',function(){
 					
 					if(that.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-						global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'inline',that.options.theme]);
+						global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'inline'+that.options.theme]);
 					}
 					return true;
 				});
@@ -58,7 +58,7 @@
 			}
 			this.widgetElem.appendChild(tmpUl);
 			if(this.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'inline',this.options.theme]);
+				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'inline'+this.options.theme]);
 			}
 		}
 	};
