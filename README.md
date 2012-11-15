@@ -13,12 +13,13 @@ UpCloo JavaScript library
   upCloo.push(
     {
       "pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/",
-      "siteKey" : "xx00XXxxx","vSiteKey":"ss00SSsss",
+      "siteKey" : "xx00XXxxx",
+      /*"vSiteKey":"ss00SSsss",*/
       "opts": {
         "pos":"br",
         "type":"popOver",
-        "headline":"Your powerful headline!",
-        "limit":5,
+        "headline":"Maybe you're also interested in",
+        "limit":3,
         "theme": "light"
       }
     }
@@ -30,6 +31,7 @@ UpCloo JavaScript library
   !d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;
 })(this,document,'upcloo_js_sdk')
 </script>
+<style>/* Customize your widget */</style>
 <!-- UPCLOO JS SDK END -->
 ```
 
@@ -66,6 +68,9 @@ UpCloo JavaScript library
    * `popOut`
      * Distance in px from the corner to hide upcloo popover
       * [int]
+   * `ga`
+     * Track UpCloo results using Google Analytics
+      * [true, false]
 
 ## Developers
 
