@@ -9,6 +9,8 @@
 			this.widgetElemInDom = false;
 			this.isAnimate = false;
 			this.trackShow = false;
+			this.siteKey = false;
+			this.vSiteKey = false
 		};
 	popOver.prototype = {
 		'setOptions' :function(opts){
@@ -16,6 +18,12 @@
 		},
 		'setData' : function(dataObj){
 			this.data = dataObj;
+		},
+		'setSiteKey':function(k){
+			this.siteKey = k;		
+		},
+		'setVSiteKey':function(vk){
+			this.vSiteKey = vk;		
 		},
 		'_makeLink':function(obj){ 
 			
@@ -28,7 +36,7 @@
 			upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
 			upCloo.utils.bind(link,'click',function(){
 				if(that.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-					global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'popOver'+that.options.theme]);
+					global._gaq.push(['_trackEvent', 'UpCloo-'+that.siteKey+(that.vSiteKey !== false ? '-'+that.vSiteKey : ''), 'click', 'popOver-'+that.options.theme]);
 				}
 				return true;
 			});
@@ -72,7 +80,7 @@
 			this.widgetElem.style.display = 'block';
 			if(that.options.ga === true && !that.trackShow && '_gaq' in global && typeof global._gaq.push == 'function'){
 				that.trackShow = true;
-				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'popOver'+that.options.theme]);
+				global._gaq.push(['_trackEvent', 'UpCloo-'+that.siteKey+(that.vSiteKey !== false ? '-'+that.vSiteKey : ''), 'show', 'popOver-'+that.options.theme]);
 			}
 		},
 		'hide': function(){

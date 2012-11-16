@@ -66,6 +66,8 @@
 						data[i].trackUrl = "http://"+that.repoToken+".c.upcloo.com/"+that.getSiteKey()+"/"+b64.encode(data[i].url);
 					}
 						renderer.setData(data);
+						renderer.setSiteKey(that.getSiteKey());
+						renderer.setVSiteKey(that.getVSiteKey());
 						renderer.setOptions(that.options);
 						renderer.setHasImage(that.options.showImage)
 						renderer.render();

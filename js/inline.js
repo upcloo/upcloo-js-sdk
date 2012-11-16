@@ -4,6 +4,8 @@
 		Inline = function(elem){
 		
 			this.data = false;
+			this.siteKey = false;
+			this.vSiteKey = false;
 			this.options = {};
 			this.hasImage =false;
 			this.widgetElem = elem;	
@@ -11,6 +13,12 @@
 	Inline.prototype = {
 		'setOptions' :function(opts){
 			this.options = opts || {};
+		},
+		'setSiteKey':function(k){
+			this.siteKey = k;		
+		},
+		'setVSiteKey':function(vk){
+			this.vSiteKey = vk;		
 		},
 		'setData' : function(dataObj){
 			this.data = dataObj;
@@ -26,7 +34,7 @@
 				upCloo.utils.bind(link,'click',function(){
 					
 					if(that.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-						global._gaq.push(['_trackEvent', 'UpCloo', 'click', 'inline'+that.options.theme]);
+						global._gaq.push(['_trackEvent', 'UpCloo-'+that.siteKey+(that.vSiteKey !== false ? '-'+that.vSiteKey : ''), 'click', 'inline-'+that.options.theme]);
 					}
 					return true;
 				});
@@ -58,7 +66,7 @@
 			}
 			this.widgetElem.appendChild(tmpUl);
 			if(this.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-				global._gaq.push(['_trackEvent', 'UpCloo', 'show', 'inline'+this.options.theme]);
+				global._gaq.push(['_trackEvent', 'UpCloo-'+this.siteKey+(this.vSiteKey !== false ? '-'+this.vSiteKey : ''), 'show', 'inline-'+this.options.theme]);
 			}
 		}
 	};
