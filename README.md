@@ -71,6 +71,9 @@ UpCloo JavaScript library
    * `ga`
      * Track UpCloo results using Google Analytics
       * [true, false]
+   * `wrap`
+     * Cleaner function. Useful to clean UpCloo suggestions
+      * [function]
 
 ## Developers
 
