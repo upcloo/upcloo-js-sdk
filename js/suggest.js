@@ -11,6 +11,7 @@
 			'type':'popOver',
 			'theme':'grey' ,
 			'ga':false,
+			'wrap':function(a){return a;},
 			'showImage':false,
 			'popIn':400,
 			'popOut':100,
@@ -64,6 +65,7 @@
 					for(var i =0; i< data.length; i++){
 						if('image' in data[i] && data[i].image )hasImage = true;
 						data[i].trackUrl = "http://"+that.repoToken+".c.upcloo.com/"+that.getSiteKey()+"/"+b64.encode(data[i].url);
+						data[i] = that.options.wrap(data[i]); 
 					}
 						renderer.setData(data);
 						renderer.setSiteKey(that.getSiteKey());

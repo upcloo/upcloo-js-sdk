@@ -30,14 +30,13 @@
 				that = this;	
 				link.setAttribute('href',obj.url),
 				link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
-				upCloo.utils.bind(link,'mousedown',function(){this.setAttribute('href',obj.trackUrl);});
-				upCloo.utils.bind(link,'click',function(){
-					
-					if(that.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-						global._gaq.push(['_trackEvent', 'UpCloo-'+that.siteKey+(that.vSiteKey !== false ? '-'+that.vSiteKey : ''), 'click', 'inline-'+that.options.theme]);
-					}
-					return true;
+				upCloo.utils.bind(link,'mousedown',function(){
+				var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
+				var trackUrl = obj.trackUrl + (that.options.ga === true ? '?' + upCloo.utils.base64.encode( 'ga=inline|' + that.options.theme + vk ) : '') ;
+					this.setAttribute('href',trackUrl );
+					console.log(trackUrl);
 				});
+				
 			return link;
 		},
 		'setHasImage':function(yesno){
