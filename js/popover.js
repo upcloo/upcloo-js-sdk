@@ -35,7 +35,7 @@
 			link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
 			upCloo.utils.bind(link,'mousedown',function(){
 				var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
-				var trackUrl = obj.trackUrl + (that.options.ga === true ? '?' + upCloo.utils.base64.encode( 'ga=popOver|' + that.options.theme + vk ) : '') ;
+				var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'popOver|' + that.options.theme + vk ) : '') ;
 					this.setAttribute('href',trackUrl );
 			});
 			
