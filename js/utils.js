@@ -82,8 +82,8 @@
 				if (this.readyState == 'complete' || this.readyState == 'loaded') {
 					clearTimeout(tmRef);
 					isTimeout ? false : done.call(this);
+					isTimeout = true;
 				}
-				isTimeout = true;
 			};
 		}
 		first.parentNode.insertBefore(js, first);
