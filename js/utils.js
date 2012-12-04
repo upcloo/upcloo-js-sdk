@@ -83,6 +83,7 @@
 					clearTimeout(tmRef);
 					isTimeout ? false : done.call(this);
 				}
+				isTimeout = true;
 			};
 		}
 		first.parentNode.insertBefore(js, first);
