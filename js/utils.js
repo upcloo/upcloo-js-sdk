@@ -278,7 +278,7 @@
 	 
 			}
 	 
-			return utftext;
+			return utftext.replace(/\//g,'_');
 		}
 	};
 	
