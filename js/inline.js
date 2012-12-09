@@ -34,7 +34,7 @@
 				var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
 				var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'inline|' + that.options.theme + vk ) : '') ;
 					this.setAttribute('href',trackUrl );
-					console.log(trackUrl);
+					
 				});
 				
 			return link;
