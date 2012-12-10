@@ -156,19 +156,28 @@
 	};
 
 	var _$byClass = function(className){
-		var toArr = Array.prototype.slice;
+		var toArr = Array.prototype.slice,
+			ret = false,
+			fallback = function(className){
+				var elArray = [], 
+					tmp = document.getElementsByTagName("*") ,
+					regex = new RegExp( '(^|s)' + className + '(s|$)');
+			
+				for ( var i = 0; i < tmp.length; i++ ) {
+					if ( regex.test(tmp[i].className) )	elArray.push(tmp[i]);
+				}
+				return elArray;
+			};
 			
 		if ('querySelectorAll' in document){
-			return toArr.call(document.querySelectorAll('.'+className),0);
-		}
-		var elArray = [], 
-			tmp = document.getElementsByTagName("*") ,
-			regex = new RegExp( '(^|s)' + className + '(s|$)');
-			
-		for ( var i = 0; i < tmp.length; i++ ) {
-			if ( regex.test(tmp[i].className) )	elArray.push(tmp[i]);
+			try {
+				ret = toArr.call(document.querySelectorAll('.'+className),0);
+				
+			} catch( e ) {
+				ret = fallback(className);
 			}
-			return elArray;
+		}
+		return ret ? ret : fallback(className);
 	};
 	var _clone = function me(obj){
 		var clone = {};
