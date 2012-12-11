@@ -260,7 +260,7 @@
 	 
 			}
 	 
-			return output;
+			return output.replace(/\//g,'_');
 		},
 	 
 		// private method for UTF-8 encoding
@@ -287,7 +287,7 @@
 	 
 			}
 	 
-			return utftext.replace(/\//g,'_');
+			return utftext;
 		}
 	};
 	
