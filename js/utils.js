@@ -72,17 +72,20 @@
 			tmRef = setTimeout(function(){ 
 						isTimeout = true;
 						done.call(this);
+						
 					},timeout * 1000);}
 		js.onload = function(){
 			clearTimeout(tmRef);
-			isTimeout ? false : done.call(this);
+			isTimeout ? false : (isTimeout = true) && done.call(this);
 		};
 		if (js.readyState) {// readystate on js elem will exclude onload compatible browsers
 			js.onreadystatechange = function () { 
+			
 				if (this.readyState == 'complete' || this.readyState == 'loaded') {
 					clearTimeout(tmRef);
-					isTimeout ? false : done.call(this);
-					isTimeout = true;
+					
+					isTimeout ? false : (isTimeout = true) && done.call(this);
+					
 				}
 			};
 		}
