@@ -68,6 +68,7 @@
 			tmRef = false,
 			isTimeout = false;
 		js.src = url;
+		
 		if(timeout){
 			tmRef = setTimeout(function(){ 
 						isTimeout = true;
@@ -80,12 +81,9 @@
 		};
 		if (js.readyState) {// readystate on js elem will exclude onload compatible browsers
 			js.onreadystatechange = function () { 
-			
 				if (this.readyState == 'complete' || this.readyState == 'loaded') {
 					clearTimeout(tmRef);
-					
 					isTimeout ? false : (isTimeout = true) && done.call(this);
-					
 				}
 			};
 		}
