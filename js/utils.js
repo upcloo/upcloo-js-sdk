@@ -51,15 +51,18 @@
 		var js = document.createElement('script'),
 		first = document.getElementsByTagName('script')[0],
 		uniqCallback = new Date().getTime()+''+Math.floor(Math.random() * 10e4);
-		js.src = url + '?' + 'callback=upcloo_'+uniqCallback;
+		
+		js.src = url + '?'+q.replace(/\?/g,'')+'&callback=upcloo_'+uniqCallback;
 		global['upcloo_'+uniqCallback] = function(json){
-
 			callback.call(this,json);
-
-			delete global['upcloo_'+uniqCallback];
+			global['upcloo_'+uniqCallback]=null;
+			//delete global['upcloo_'+uniqCallback];
 			first.parentNode.removeChild(js);
 		};
-		first.parentNode.insertBefore(js, first);	
+		try{
+			first.parentNode.insertBefore(js, first);	
+		} catch (e){ return false; }
+		return true;
 	};
 	//check something for onload handling ie 7
 	var _script = function(url,done,timeout){

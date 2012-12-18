@@ -16,7 +16,7 @@
 			'popIn':400,
 			'popOut':100,
 			'defaultImage':'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-			'upClooSuggestBase':'repository.upcloo.com',
+			'upClooSuggestBase':'dynamic.repository.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//r.upcloo.com/a'
 		};
@@ -53,12 +53,11 @@
 			var dataUrl = this.options.upClooSuggestBase + '/' + this.siteKey + '/' +
 						( this.getVSiteKey() ? this.getVSiteKey() + '/': '' )  +
 						hash;
-			upCloo.utils.script( dataUrl ,function(){
-				var callback = that.getVSiteKey() ? 'getExtraData' : 'getData';
-				if( callback in upCloo.suggest && upCloo.suggest[callback]() !== false ){
+			
+			upCloo.utils.jsonp( dataUrl,'',function(data){
+				if( data !== false ){
 					var wName = that.options.type,
 						renderer = upCloo.widgets[wName](that.domElem),
-						data = upCloo.suggest[callback](),
 						hasImage = false;
 					that.renderer = renderer;
 					if(data.length === 0)return false;
