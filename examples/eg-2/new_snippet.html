@@ -35,7 +35,8 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
 <h4>Default:</h4>
 <textarea>
 <!-- UPCLOO JS SDK START --><div class='upcloo-suggest-widget'></div>
-<script>(function(g,d,id){ upCloo = g.upCloo || []; upCloo.push({"pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/","siteKey" : "xx00XXxxx","vSiteKey":"ss00SSsss"});var s = d.createElement('script') , n = d.getElementsByTagName('script')[0]; s.type = 'text/javascript';s.async = true;s.id = id;s.src = '../../build/js/upcloo.min.js';!d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;})(this,document,'upcloo_js_sdk')</script>
+<script>(function(g,d,id){ upCloo = g.upCloo || []; upCloo.push({"pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/","siteKey" : "xx00XXxxx","vSiteKey":"ss00SSsss"
+	});var s = d.createElement('script') , n = d.getElementsByTagName('script')[0]; s.type = 'text/javascript';s.async = true;s.id = id;s.src = '../../build/js/upcloo.min.js';!d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;})(this,document,'upcloo_js_sdk')</script>
 <!-- UPCLOO JS SDK END -->
 </textarea>
 <h4>Opts:</h4>
@@ -51,7 +52,21 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
     <h1>
     <!-- UPCLOO JS SDK START -->
     <div class='upcloo-suggest-widget'></div>
-    <script>(function(g,d,id){ upCloo = g.upCloo|| []; upCloo.push({"pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/" ,"vSiteKey":"ss00SSsss","siteKey" : "xx00XXxxx","opts":{"pos":"br","ga":false,"type":"inline","theme":"light","headline":"Belllaaaaaaaa :-)","limit":5}});var s = d.createElement('script') , n = d.getElementsByTagName('script')[0]; s.type = 'text/javascript';s.async = true;s.id = id;s.src = '../../build/js/upcloo.all.js';!d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;})(this,document,'upcloo_js_sdk')</script>
+    <script>(function(g,d,id){ upCloo = g.upCloo|| []; upCloo.push({"pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/" ,
+    	"vSiteKey":"ss00SSsss",
+    	"siteKey" : "xx00XXxxx",
+    	"opts":{"pos":"br",
+    			"ga":false,
+    			"type":"inline",
+    			"theme":"light",
+    			"preRender":function($){
+          		var nE = document.createElement('h5')
+            	   	$.insertBefore(nE,$.firstChild);
+          			nE.innerHTML ='bella'
+          	    return $;
+          	   },
+    			"headline":"Belllaaaaaaaa :-)",
+    			"limit":5}});var s = d.createElement('script') , n = d.getElementsByTagName('script')[0]; s.type = 'text/javascript';s.async = true;s.id = id;s.src = '../../build/js/upcloo.all.js';!d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;})(this,document,'upcloo_js_sdk')</script>
     <!-- UPCLOO JS SDK END -->  
     </h1>
    
@@ -69,7 +84,13 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
                "limit":5,
                "theme":"grey",
                "type":"popOver",
-		"ga":true,
+               "preRender":function($){
+          		var nE = document.createElement('h5')
+            	   	$.insertBefore(nE,$.firstChild);
+          			nE.innerHTML ='bella'
+          	    return $;
+          	   },
+				"ga":false,
                "showImage": 1,
                "pos": "bl",
                "defaultImage":"http://cdn5.staztic.com/cdn/logos/comcustomlwphotbabewithbigboobsswell-4.png"
@@ -79,7 +100,7 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
      var s = d.createElement('script') , n = d.getElementsByTagName('script')[0]; 
      s.type = 'text/javascript';
      s.async = true;s.id = id;
-     s.src = '//r.upcloo.com/a/u.js';
+     s.src = '../../build/js/upcloo.min.js';
      !d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;
    })(this,document,'upcloo_js_sdk')
 </script>
