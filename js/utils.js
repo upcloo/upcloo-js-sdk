@@ -28,6 +28,18 @@
 		}
 		_boundDecorator.push([callback,eventHandle]);
 	};
+	var _lazyBind = function(parent,className,evtName,func){
+		_bind(parent,evtName,function(e,target){
+			var node = target; 
+			while(node && node !== parent ){
+				if(_hasClass(node,className)){
+					return func.apply(node,[e,node]);
+				}
+				node = node.parentNode;
+			}
+			return true;
+		});
+	}
 	
 	var _unbind =function(elem, type, handle ){
 		
@@ -308,6 +320,7 @@
 				'cssFile'   : _cssFile,
 				'ready'		: _ready,
 				'$byClass'  : _$byClass,
+				'lazyBind'	: _lazyBind,
 				'clone'		: _clone
 		};
 	}

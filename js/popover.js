@@ -33,10 +33,14 @@
 
 			link.setAttribute('href',obj.url);
 			link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
+			
 			upCloo.utils.bind(link,'mousedown',function(){
-				var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
+				
+				var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;
+				
 				var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'popOver|' + that.options.theme + vk ) : '') ;
 					this.setAttribute('href',trackUrl );
+					
 			});
 			
 			return link;
@@ -122,7 +126,7 @@
 					tmpLi.appendChild(this._makeLink(arr[i]));
 					tmpUl.appendChild(tmpLi);
 			}
-			tmpRoot.appendChild(tmpUl);
+			tmpRoot.appendChild(this.options.preRender.call(this,tmpUl));
 			if(!this.widgetElemInDom){
 				document.getElementsByTagName('body')[0].appendChild(this.widgetElem);
 				this.widgetElemInDom = true;

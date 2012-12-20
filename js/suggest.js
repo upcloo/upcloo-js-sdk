@@ -18,7 +18,8 @@
 			'defaultImage':'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 			'upClooSuggestBase':'repository.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
-			'upClooAssetEndpoint':'//r.upcloo.com/a'
+			'upClooAssetEndpoint':'//r.upcloo.com/a',
+			'preRender':function(dE){return dE;}
 		};
 	var Suggest = function(siteKey,pageId,vSiteKey,options,domElem){
 			this.currentWidget = false;
