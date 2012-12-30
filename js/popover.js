@@ -28,18 +28,31 @@
 		'_makeLink':function(obj){ 
 			
 			var link = document.createElement('a'),
-				imageSrc = obj.image.length > 0 ? obj.image : this.options.defaultImage,
-				that = this;
-
+			li = document.createElement('li'),
+			imageSrc = obj.image.length > 0 ? obj.image : this.options.defaultImage,
+			that = this;	
+			upCloo.utils.addClass(li,'upcloo-'+obj.type);
 			link.setAttribute('href',obj.url);
-			link.innerHTML = this.hasImage ? "<img src='"+imageSrc+"' alt='' border='0'/>" + obj.title : obj.title ;
+			 
+			for(var elem in obj){
+				if( obj.hasOwnProperty(elem) && 
+					(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
+					console.log(elem)
+					var isImg = elem =='image',
+						el = document.createElement(isImg ? 'image' : 'span');
+					isImg ? el.setAttribute('src',obj[elem]) : el.innerHTML = obj[elem];
+					upCloo.utils.addClass(el,'upcloo-suggest-'+elem);
+					isImg ? (that.hasImage ? link.appendChild(el) : false ) 
+							: link.appendChild(el);
+				}
+			}
 			upCloo.utils.bind(link,'mousedown',function(){
 				var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
 				var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'popOver|' + that.options.theme + vk ) : '') ;
 					this.setAttribute('href',trackUrl );
 			});
-			
-			return link;
+			li.appendChild(link);
+			return li;
 		},
 		'_doScrollCheck': function(){
 			
@@ -95,32 +108,30 @@
 				closeBtn = document.createElement('span'),
 				tmpUl = document.createElement('ul'),
 				count = 'limit' in this.options ? parseInt(this.options.limit,10) : 3 ;
-			upCloo.utils.addClass(tmpRoot,'upcloo-over');
-			upCloo.utils.addClass(tmpRoot,'upcloo-widget');
+			
 			//pos
 			upCloo.utils.addClass(tmpRoot,'upcloo-over-' + ('pos' in this.options ? this.options.pos : 'br'));
 			//theme
 			upCloo.utils.addClass(tmpRoot,'upcloo-over-' + this.options.theme);
 			//headline
-			upCloo.utils.addClass(tmpHeadline,'upcloo-over-title');
-			if(this.hasImage)upCloo.utils.addClass(this.widgetElem,'upcloo-img');
+			upCloo.utils.addClass(tmpHeadline,'upcloo-title');
+		
 			if('headline' in this.options && this.options.headline ){
 				closeBtn.innerHTML = 'x';
 				upCloo.utils.bind(closeBtn,'click',function(){
 					upCloo.utils.unbind(window,'scroll',that.refScrollHandler)
 					tmpRoot.parentNode.removeChild(tmpRoot)
 				});
-				upCloo.utils.addClass(closeBtn,'upcloo-over-close');
+				upCloo.utils.addClass(closeBtn,'upcloo-close');
 				tmpHeadline.innerHTML = this.options.headline;
 				tmpHeadline.appendChild(closeBtn);
 				tmpUl.appendChild(tmpHeadline);
 			}
 			for(var i=0; i < count; i++){
 				if(arr[i] === undefined)break;
-				var tmpLi = document.createElement('li');
-				
-					tmpLi.appendChild(this._makeLink(arr[i]));
-					tmpUl.appendChild(tmpLi);
+
+				tmpUl.appendChild(this._makeLink(arr[i]));
+		
 			}
 			tmpRoot.appendChild(tmpUl);
 			if(!this.widgetElemInDom){

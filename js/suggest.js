@@ -30,7 +30,7 @@
 			this.domElem = domElem;
 			var that = this,
 				b64 = upCloo.utils.base64,
-				hash = b64.encode(pageId) + '.js';
+				hash = b64.encode(pageId);
 		
 			if(options){
 				for (var i in _defaults) {
