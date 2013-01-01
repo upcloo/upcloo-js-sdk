@@ -8,6 +8,7 @@
 			'pos':'br',
 			'limit':3,
 			'headline':false,
+			'cssStyle':false,
 			'type':'popOver',
 			'theme':'grey' ,
 			'ga':false,
@@ -46,10 +47,7 @@
 			this.setSiteKey(siteKey);
 			
 			this.setVSiteKey(vSiteKey ? vSiteKey : false);
-			
-			if(!this.options.customCss){
-				upCloo.utils.cssFile(this.options.upClooAssetEndpoint + '/' + 'u.css');	
-			}
+		
 			var dataUrl = this.options.upClooSuggestBase + '/' + this.siteKey + '/' +
 						( this.getVSiteKey() ? this.getVSiteKey() + '/': '' )  +
 						hash;
@@ -71,6 +69,7 @@
 						renderer.setVSiteKey(that.getVSiteKey());
 						renderer.setOptions(that.options);
 						renderer.setHasImage(that.options.showImage)
+						upCloo.utils.cssInline(that.options.cssStyle);
 						renderer.render();
 					
 				} else {

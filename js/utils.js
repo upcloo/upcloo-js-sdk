@@ -57,11 +57,14 @@
 		global['upcloo_'+uniqCallback] = function(json){
 			callback.call(this,json);
 			global['upcloo_'+uniqCallback]=null;
-			first.parentNode.removeChild(js);
+			js.parentNode.removeChild(js);
+			
 		};
 		try{
 			first.parentNode.insertBefore(js, first);	
-		} catch (e){ return false; }
+		} catch (e){ 
+			
+			return false; }
 		return true;
 	};
 	//check something for onload handling ie 7
@@ -102,7 +105,24 @@
              document.getElementsByTagName("head")[0].appendChild(f);
          }
 		};
-	
+	var _cssInline = function(styleText){
+		var style_sheet = document.createElement('style');
+		if (style_sheet) {
+			style_sheet.setAttribute('type', 'text/css');
+			var cstr = styleText;
+			var rules = document.createTextNode(cstr);
+			if(style_sheet.styleSheet){// IE
+				style_sheet.styleSheet.cssText = rules.nodeValue;
+			} else {
+				style_sheet.appendChild(rules);
+			}
+			var head = document.getElementsByTagName('head')[0];
+			if (head) {
+				head.appendChild(style_sheet);
+			}
+		}
+			
+	};
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
 		var box;
@@ -309,6 +329,7 @@
 				'index'		: _index,
 				'base64'	: _base64,
 				'cssFile'   : _cssFile,
+				'cssInline' : _cssInline,
 				'ready'		: _ready,
 				'$byClass'  : _$byClass,
 				'clone'		: _clone

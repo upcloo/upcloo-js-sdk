@@ -35,9 +35,9 @@
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
 						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
-						console.log(elem)
+						
 						var isImg = elem =='image',
-							el = document.createElement(isImg ? 'image' : 'span');
+							el = document.createElement(isImg ? 'img' : 'span');
 						isImg ? el.setAttribute('src',obj[elem]) : el.innerHTML = obj[elem];
 						upCloo.utils.addClass(el,'upcloo-suggest-'+elem);
 						isImg ? (that.hasImage ? link.appendChild(el) : false ) 
