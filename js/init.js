@@ -5,14 +5,14 @@ var conf = upCloo.widgets;
 		for(var i=0; i < widgets.length; i++)
 			(function(i){
 				var id =widgets[i].getAttribute('id');
-				upCloo.utils.jsonp('//opts.repository.upcloo.com/'+conf[i].siteKey+'/'+id,'',function(options){
+				upCloo.utils.jsonp('//s.upcloo.com/'+conf[i].siteKey+'/'+id,'',function(options){
 					upCloo.instances.push(new upCloo.suggest(conf[i].siteKey,
 							conf[i].permalink,
 							conf[i].vSiteKey,
 							options,
 							widgets[i]));
 					
-				},'upcloo_'+id);
+				},id);
 			})(i);
 	});
 })(window === undefined ? this : window);
