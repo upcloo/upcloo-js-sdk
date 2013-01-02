@@ -38,7 +38,7 @@
 						
 						var isImg = elem =='image',
 							el = document.createElement(isImg ? 'img' : 'span');
-						isImg ? el.setAttribute('src',obj[elem]) : el.innerHTML = obj[elem];
+						isImg ? el.setAttribute('src',imageSrc ) : el.innerHTML = obj[elem];
 						upCloo.utils.addClass(el,'upcloo-suggest-'+elem);
 						isImg ? (that.hasImage ? link.appendChild(el) : false ) 
 								: link.appendChild(el);
