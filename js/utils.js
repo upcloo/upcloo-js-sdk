@@ -47,16 +47,16 @@
 			}	
 			vanillaUnbind(elem,type,currCallback)
 	}
-	var _jsonp = function(url,q,callback){
+	var _jsonp = function(url,q,callback,param){
 		var js = document.createElement('script'),
 		first = document.getElementsByTagName('script')[0],
-		uniqCallback = new Date().getTime()+''+Math.floor(Math.random() * 10e4);
+		uniqCallback = param ? param : 'cb'+new Date().getTime()+''+ Math.floor(Math.random() * 10e4);
 		
-		js.src = url + '?'+q.replace(/\?/g,'')+'&callback=upcloo_'+uniqCallback;
+		js.src = url + '?'+q.replace(/\?/g,'')+'&callback='+uniqCallback;
 		
-		global['upcloo_'+uniqCallback] = function(json){
+		global[uniqCallback] = function(json){
 			callback.call(this,json);
-			global['upcloo_'+uniqCallback]=null;
+			global[uniqCallback]=null;
 			js.parentNode.removeChild(js);
 			
 		};

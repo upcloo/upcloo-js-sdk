@@ -17,7 +17,7 @@
 			'popIn':400,
 			'popOut':100,
 			'defaultImage':'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-			'upClooSuggestBase':'dynamic.repository.upcloo.com',
+			'upClooSuggestBase':'o.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//r.upcloo.com/a'
 		};
@@ -77,7 +77,7 @@
 					var beacon = new Image();
 					beacon.src = that.options.upClooBeaconBase + '/' + that.siteKey + '/' + b64.encode(that.pageId) ;
 				}
-			},1.5);
+			});
 		
 		};
 	Suggest.prototype = {
