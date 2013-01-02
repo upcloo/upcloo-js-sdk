@@ -1,7 +1,7 @@
 <?php
 
 $callback = 'upcloo_abcdeabcde';
-$json = '{"sendBeacon":true,"headline":"Questi potrebbero PIACERTI","limit":5,"theme":"grey","type":"inline","ga":true,"showImage":1,"pos":"bl","defaultImage":"http://cdn5.staztic.com/cdn/logos/comcustomlwphotbabewithbigboobsswell-4.png"}';
+$json = '{"sendBeacon":true, "headline":"Continua nella lettura","limit":3,"theme":"basic","type":"inline","showImage": 1,"pos": "br","popIn": 200,"popOut": 100,"defaultImage": "http://walterdalmut.com/wp-content/plugins/wp-upcloo/assets/no-image.gif","ga": true}';
 header("Content-Type: application/javascript; charset=utf-8");
 header("Age:0");
 header("Cache-Control:max-age=15, must-revalidate");
