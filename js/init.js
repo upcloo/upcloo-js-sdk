@@ -1,7 +1,7 @@
 (function(global){
 var conf = upCloo.widgets;
 	upCloo.utils.ready(function(){
-		var widgets = upCloo.utils.$byClass('upcloo-suggest-widget');
+		var widgets = upCloo.utils.$byClass('upcloo-widget');
 		for(var i=0; i < widgets.length; i++)
 			(function(i){
 				var id =widgets[i].getAttribute('id');

@@ -54,6 +54,7 @@
 			
 			upCloo.utils.jsonp( dataUrl,'',function(data){
 				if( data !== false ){
+					
 					var wName = that.options.type,
 						renderer = upCloo.widgets[wName](that.domElem),
 						hasImage = false;

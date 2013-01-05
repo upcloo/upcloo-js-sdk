@@ -24,24 +24,32 @@
 			this.data = dataObj;
 		},
 		'_makeLink':function(obj){ 
-
 			var link = document.createElement('a'),
 				li = document.createElement('li'),
 				imageSrc = obj.image.length > 0 ? obj.image : this.options.defaultImage,
 				that = this;	
 				upCloo.utils.addClass(li,'upcloo-'+obj.type);
 				link.setAttribute('href',obj.url);
-				 
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
 						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
 						
-						var isImg = elem =='image',
-							el = document.createElement(isImg ? 'img' : 'span');
-						isImg ? el.setAttribute('src',imageSrc ) : el.innerHTML = obj[elem];
-						upCloo.utils.addClass(el,'upcloo-suggest-'+elem);
-						isImg ? (that.hasImage ? link.appendChild(el) : false ) 
-								: link.appendChild(el);
+						var el = document.createElement('span'),
+							sub = false,
+							image = (elem == 'image' ? (obj[elem] ? obj[elem] : this.options.defaultImage) : false);
+						if(image){
+							if( !that.hasImage )continue;
+							sub = document.createElement('img');
+							sub.setAttribute('src',image);
+							upCloo.utils.addClass(el,'upcloo-suggest-img');
+						} else {
+							sub = document.createElement('span');
+							sub.innerHTML = obj[elem];
+							upCloo.utils.addClass(sub,'upcloo-suggest-'+elem);
+							upCloo.utils.addClass(el,'upcloo-suggest-span');
+						}
+						el.appendChild(sub);
+						link.appendChild(el);
 					}
 				}
 				upCloo.utils.bind(link,'mousedown',function(){
@@ -66,7 +74,7 @@
 		
 			if(this.options.headline ){
 				tmpHeadline.innerHTML = this.options.headline;
-				upCloo.utils.addClass(tmpHeadline,'upcloo-title');
+				upCloo.utils.addClass(tmpHeadline,'upcloo-header');
 				tmpUl.appendChild(tmpHeadline);
 			}
 			for(var i=0; i < count; i++){
