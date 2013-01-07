@@ -26,32 +26,37 @@
 		'_makeLink':function(obj){ 
 			var link = document.createElement('a'),
 				li = document.createElement('li'),
-				imageSrc = obj.image.length > 0 ? obj.image : this.options.defaultImage,
+				el = document.createElement('span'),
+				imageWrap = document.createElement('span'),
 				that = this;	
 				upCloo.utils.addClass(li,'upcloo-'+obj.type);
 				link.setAttribute('href',obj.url);
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
 						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
-						
-						var el = document.createElement('span'),
-							sub = false,
+						var sub = false,
 							image = (elem == 'image' ? (obj[elem] ? obj[elem] : this.options.defaultImage) : false);
 						if(image){
 							if( !that.hasImage )continue;
 							sub = document.createElement('img');
 							sub.setAttribute('src',image);
-							upCloo.utils.addClass(el,'upcloo-suggest-img');
-						} else {
+							upCloo.utils.addClass(imageWrap,'upcloo-suggest-img');
+							imageWrap.appendChild(sub);
+							continue;
+						} 
 							sub = document.createElement('span');
 							sub.innerHTML = obj[elem];
 							upCloo.utils.addClass(sub,'upcloo-suggest-'+elem);
 							upCloo.utils.addClass(el,'upcloo-suggest-span');
-						}
+						
 						el.appendChild(sub);
-						link.appendChild(el);
+						
 					}
 				}
+				if(that.hasImage){
+					link.appendChild(imageWrap);
+				}
+				link.appendChild(el);
 				upCloo.utils.bind(link,'mousedown',function(){
 					var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
 					var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'inline|' + that.options.theme + vk ) : '') ;
