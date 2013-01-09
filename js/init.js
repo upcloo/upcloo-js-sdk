@@ -6,7 +6,7 @@ var conf = upCloo.widgets;
 			(function(i){
 				var id =widgets[i].getAttribute('id');
 				var vSiteKey = 'vSiteKey' in conf[i] ? conf[i].vSiteKey : false;
-				upCloo.utils.jsonp('//s.upcloo.com/'+conf[i].siteKey+'/'+(vSiteKey ? vSiteKey+'/' : '')+id,'',function(options){
+				upCloo.utils.jsonp('//s.upcloo.com/'+conf[i].siteKey+'/'+id,'',function(options){
 					upCloo.instances.push(new upCloo.suggest(conf[i].siteKey,
 							conf[i].permalink,
 							conf[i].vSiteKey,
