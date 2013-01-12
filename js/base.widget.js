@@ -1,16 +1,16 @@
 (function(global){
 	
 	var upCloo = global.upCloo;
-		Inline = function(elem){
-		
+		base = function(){};
+	base.prototype = {
+		'init' : function(elem){
 			this.data = false;
 			this.siteKey = false;
 			this.vSiteKey = false;
 			this.options = {};
 			this.hasImage =false;
 			this.widgetElem = elem;	
-		};
-	Inline.prototype = {
+		},
 		'setOptions' :function(opts){
 			this.options = opts || {};
 		},
@@ -67,34 +67,10 @@
 		},
 		'setHasImage':function(yesno){
 			this.hasImage = yesno;
-		},
-		'render' : function(){
-			var arr = this.data,
-				tmpHeadline = document.createElement('li'),	
-				tmpUl = document.createElement('ul'),
-				count = 'limit' in this.options ? parseInt(this.options.limit,10) : 3 ;
-				
-	
-			//has thumb 
-		
-			if(this.options.headline ){
-				tmpHeadline.innerHTML = this.options.headline;
-				upCloo.utils.addClass(tmpHeadline,'upcloo-header');
-				tmpUl.appendChild(tmpHeadline);
-			}
-			for(var i=0; i < count; i++){
-				if(arr[i] === undefined)break;
-				tmpUl.appendChild(this._makeLink(arr[i]));
-			}
-			this.widgetElem.appendChild(tmpUl);
-			if(this.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
-				global._gaq.push(['_trackEvent', 'UpCloo-'+this.siteKey+(this.vSiteKey !== false ? '-'+this.vSiteKey : ''), 'show', 'inline-'+this.options.theme]);
-			}
 		}
 	};
-
 	if('upCloo' in global){
 		'widgets' in global.upCloo ? false : global.upCloo.widgets = {};
-		global.upCloo.widgets.inline = function(elem){ return new Inline(elem); }
+		global.upCloo.widgets.base = base
 	}
 })(window === undefined ? this : window);

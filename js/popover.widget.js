@@ -1,74 +1,19 @@
 (function(global){
 	
-	var upCloo = global.upCloo;
-		popOver = function(elem){
-			
-			this.data = false;
-			this.options = {};
-			this.widgetElem = elem;
-			this.hasImage = false;
-			this.widgetElemInDom = false;
-			this.isAnimate = false;
-			this.trackShow = false;
-			this.siteKey = false;
-			this.vSiteKey = false
-		};
-		popOver.prototype = {
-		'setOptions' :function(opts){
-			this.options = opts || {};
-		},
-		'setData' : function(dataObj){
-			this.data = dataObj;
-		},
-		'setSiteKey':function(k){
-			this.siteKey = k;		
-		},
-		'setVSiteKey':function(vk){
-			this.vSiteKey = vk;		
-		},
-		'_makeLink':function(obj){ 
-			var link = document.createElement('a'),
-				li = document.createElement('li'),
-				el = document.createElement('span'),
-				imageWrap = document.createElement('span'),
-				that = this;	
-				upCloo.utils.addClass(li,'upcloo-'+obj.type);
-				link.setAttribute('href',obj.url);
-				for(var elem in obj){
-					if( obj.hasOwnProperty(elem) && 
-						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
-						var sub = false,
-							image = (elem == 'image' ? (obj[elem] ? obj[elem] : this.options.defaultImage) : false);
-						if(image){
-							if( !that.hasImage )continue;
-							sub = document.createElement('img');
-							sub.setAttribute('src',image);
-							upCloo.utils.addClass(imageWrap,'upcloo-suggest-img');
-							imageWrap.appendChild(sub);
-							continue;
-						} 
-							sub = document.createElement('span');
-							sub.innerHTML = obj[elem];
-							upCloo.utils.addClass(sub,'upcloo-suggest-'+elem);
-							upCloo.utils.addClass(el,'upcloo-suggest-span');
-						
-						el.appendChild(sub);
-						
-					}
-				}
-				if(that.hasImage){
-					link.appendChild(imageWrap);
-				}
-				link.appendChild(el);
-				upCloo.utils.bind(link,'mousedown',function(){
-					var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '' ;				
-					var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'inline|' + that.options.theme + vk ) : '') ;
-						this.setAttribute('href',trackUrl );
-				});
-				li.appendChild(link);
-				return li;
-		},
-		'_doScrollCheck': function(){
+	var upCloo = global.upCloo,
+		popOver = function popOver(elem){return new popOver.prototype.init(elem);};
+
+		upCloo.utils.inherit(popOver,upCloo.widgets.base);
+		popOver.prototype.init = (function(superInit){ 
+			return function(elem){
+				this.widgetElemInDom = false;
+				this.isAnimate = false;
+				this.trackShow = false;
+				return superInit.apply(this,[elem]);
+			};
+		})(popOver.prototype.init);
+		
+		popOver.prototype._doScrollCheck =function(){
 			
 			var that = this;
 			var handle = function(e) {
@@ -80,11 +25,11 @@
 			that.refScrollHandler = handle;
 			upCloo.utils.bind(window,'scroll',handle);
 			
-		},
-		'hidden': function(){
+		};
+		popOver.prototype.hidden =function(){
 			return this.widgetElem.style.display == 'none';
-		},
-		'show': function(){
+		};
+		popOver.prototype.show = function(){
 			
 			var that = this;
 			if(!this.isAnimate && this.hidden()){
@@ -105,16 +50,13 @@
 			
 			this.widgetElem.style.display = 'block';
 			
-		},
-		'hide': function(){
+		};
+		popOver.prototype.hide = function(){
 			this.widgetElem.style.opacity = 0;
 			this.widgetElem.style.filter = 'alpha(opacity=0)'
 			this.widgetElem.style.display = 'none';
-		},
-		'setHasImage':function(yesno){
-			this.hasImage = yesno;
-		},
-		'render' : function(){
+		};
+		popOver.prototype.render = function(){
 			var arr = this.data,
 				that = this,
 				tmpRoot = this.widgetElem,
@@ -154,11 +96,11 @@
 			} 
 			this.hide();
 			this._doScrollCheck();
-		}
-	};
+		};
+		popOver.prototype.init.prototype = popOver.prototype;	
 
 	if('upCloo' in global){
 		'widgets' in global.upCloo ? false : global.upCloo.widgets = {};
-		global.upCloo.widgets.popOver = function(elem){ return new popOver(elem); }
+		global.upCloo.widgets.popOver = popOver;
 	}
 })(window === undefined ? this : window);

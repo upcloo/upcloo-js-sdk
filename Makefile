@@ -11,7 +11,7 @@ build:
 	@echo "Check the source code using \"jshint\""
 	@jshint js/*.js --config js/.jshintrc
 	@echo "Minify \"upcloo.js\" sourcecode"
-	@cat js/base.js js/utils.js js/suggest.js  js/popover.js js/inline.js js/init.js > build/js/upcloo.all.js
+	@cat js/base.js js/utils.js js/suggest.js js/base.widget.js js/inline.widget.js js/popover.widget.js js/init.js > build/js/upcloo.all.js
 	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
 	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 UpCloo Ltd.\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js

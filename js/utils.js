@@ -28,7 +28,7 @@
 		}
 		_boundDecorator.push([callback,eventHandle]);
 	};
-	
+	var _inherit= function (c,p){var F = function(){}; F.prototype = p.prototype;c.prototype = new F();}
 	var _unbind =function(elem, type, handle ){
 		
 			var vanillaUnbind = document.removeEventListener ?
@@ -332,7 +332,8 @@
 				'cssInline' : _cssInline,
 				'ready'		: _ready,
 				'$byClass'  : _$byClass,
-				'clone'		: _clone
+				'clone'		: _clone,
+				'inherit'	: _inherit
 		};
 	}
 })(window === undefined ? this : window);
