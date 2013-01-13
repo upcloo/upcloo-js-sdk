@@ -36,7 +36,7 @@
 						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
 						var sub = false,
 							image = (elem == 'image' ? (obj[elem] ? obj[elem] : this.options.defaultImage) : false);
-						if(image){
+						if(image !== false){
 							if( !that.hasImage )continue;
 							sub = document.createElement('img');
 							sub.setAttribute('src',image);
@@ -53,7 +53,7 @@
 						
 					}
 				}
-				if(that.hasImage && imageWrap.innerHTML != 'false'){
+				if(that.hasImage ){
 					link.appendChild(imageWrap);
 				}
 				link.appendChild(el);
