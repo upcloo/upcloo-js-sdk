@@ -6,32 +6,24 @@ UpCloo JavaScript library
 
 ```html
 <!-- UPCLOO JS SDK START -->
-<div class='upcloo-suggest-widget'></div>
+<div class='upcloo-widget' id="upcloo_1000"></div>
 <script>
 (function(g,d,id){
   upCloo = g.upCloo || [];
   upCloo.push(
     {
-      "pageId" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/",
-      "siteKey" : "xx00XXxxx",
-      /*"vSiteKey":"ss00SSsss",*/
-      "opts": {
-        "pos":"br",
-        "type":"popOver",
-        "headline":"Maybe you're also interested in",
-        "limit":3,
-        "theme": "light"
-      }
+      "permalink" : "http://walterdalmut.com/2012/07/29/pimple-dependency-injection-su-zendcache/",
+      "siteKey" : "xx00XXxxx"
+      /*,"vSiteKey":"ss00SSsss"*/
     }
   );
   var s = d.createElement('script') , n = d.getElementsByTagName('script')[0];
   s.type = 'text/javascript';
   s.async = true;s.id = id;
-  s.src = '../../build/js/u.js';
+  s.src = '//r.upcloo.com/a/a.js';
   !d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;
 })(this,document,'upcloo_js_sdk')
 </script>
-<style>/* Customize your widget */</style>
 <!-- UPCLOO JS SDK END -->
 ```
 
