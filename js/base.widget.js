@@ -53,7 +53,7 @@
 						
 					}
 				}
-				if(that.hasImage){
+				if(that.hasImage && imageWrap.innerHTML != 'false'){
 					link.appendChild(imageWrap);
 				}
 				link.appendChild(el);
