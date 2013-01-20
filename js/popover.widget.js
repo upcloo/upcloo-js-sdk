@@ -88,7 +88,7 @@
 				tmpUl.appendChild(this._makeLink(arr[i]));
 		
 			}
-			
+			tmpUl.setAttribute('id',this.uid+'_ul');
 			tmpRoot.appendChild(tmpUl);
 			if(!this.widgetElemInDom){
 				document.getElementsByTagName('body')[0].appendChild(this.widgetElem.parentNode.removeChild(this.widgetElem));

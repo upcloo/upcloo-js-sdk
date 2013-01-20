@@ -10,6 +10,7 @@
 			this.options = {};
 			this.hasImage =false;
 			this.widgetElem = elem;	
+			this.uid = this.widgetElem.getAttribute('id');
 		},
 		'setOptions' :function(opts){
 			this.options = opts || {};
@@ -31,6 +32,7 @@
 				that = this;	
 				upCloo.utils.addClass(li,'upcloo-'+obj.type);
 				link.setAttribute('href',obj.url);
+				
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
 						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
