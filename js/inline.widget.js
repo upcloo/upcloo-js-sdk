@@ -1,10 +1,12 @@
 (function(global){
 	
-	var upCloo = global.upCloo;
-		Inline = function Inline(elem){return new Inline.prototype.init(elem);};
+	var upCloo = global.upCloo,
+		Inline = function (elem){
+		return new Inline.prototype.init(elem);
+		};
 		upCloo.utils.inherit(Inline,upCloo.widgets.base);
 	Inline.prototype.constructor =  Inline;
-	Inline.prototype.render  =function(){
+	Inline.prototype.render  = function(){
 			var arr = this.data,
 				tmpHeadline = document.createElement('li'),	
 				tmpUl = document.createElement('ul'),

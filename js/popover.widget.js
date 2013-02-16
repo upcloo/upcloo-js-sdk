@@ -1,7 +1,7 @@
 (function(global){
 	
 	var upCloo = global.upCloo,
-		popOver = function popOver(elem){return new popOver.prototype.init(elem);};
+		popOver = function (elem){return new popOver.prototype.init(elem);};
 
 		upCloo.utils.inherit(popOver,upCloo.widgets.base);
 		popOver.prototype.init = (function(superInit){ 

@@ -29,7 +29,7 @@ window._gaq = [];
 if vSiteKey is set... the widget will get the network suggestions, otherwise local site-wide related content.
 </p>
 <h4>Default:</h4>
-
+<!-- 
    <div id="upcloo_1200"class='upcloo-widget'></div>
    <script>
  (function(g,d,id){
@@ -46,7 +46,7 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
      !d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;
    })(this,document,'upcloo_js_sdk')
 </script>
-
+ -->
    <div id="upcloo_1000"class='upcloo-widget'></div>
    <script>
  (function(g,d,id){
@@ -54,7 +54,7 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
      upCloo.push({ 
 	     
     	"permalink" : "http://www.libertas.sm/cont/news/san-marino-e-morto-primo-marani-2-volte-capitano-reggente/72382/1.html",
-	    "siteKey" : "it-bd29XEqyf",
+	    "siteKey" : "it-bd29XEqyf"
 
     	// "permalink" : "http://walterdalmut.com/2012/11/05/i-primi-passi-con-zookeeper-coordination-service/",
         // "siteKey" : "it-cd05YTzqa"
@@ -63,7 +63,8 @@ if vSiteKey is set... the widget will get the network suggestions, otherwise loc
      var s = d.createElement('script') , n = d.getElementsByTagName('script')[0]; 
      s.type = 'text/javascript';
      s.async = true;s.id = id;
-     s.src = '../../build/js/upcloo.all.js';
+     //s.src = '../../build/js/upcloo.all.js';
+     s.src = '../../build/js/upcloo.min.js';
      !d.getElementById(id) ? n.parentNode.insertBefore(s,n) :false;
    })(this,document,'upcloo_js_sdk')
 </script>
