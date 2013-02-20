@@ -1,6 +1,6 @@
 (function(global){
 	var _boundDecorator = [];
-	
+
 	var _bind = function(elem,type,eventHandle){
 		//handle ie && standard evt handling
 		var callback  = function(e){
@@ -30,7 +30,7 @@
 	};
 	var _inherit= function (c,p){var F = function(){}; F.prototype = p.prototype;c.prototype = new F();}
 	var _unbind =function(elem, type, handle ){
-		
+
 			var vanillaUnbind = document.removeEventListener ?
 					function( elem, type, handle ) {
 						if ( elem.removeEventListener ) {
@@ -44,26 +44,26 @@
 				currCallback = false;
 			for(var i=0; i < _boundDecorator.length;i++){
 				if(_boundDecorator[i][1] == handle)currCallback = _boundDecorator[i][0];
-			}	
+			}
 			vanillaUnbind(elem,type,currCallback)
 	}
 	var _jsonp = function(url,q,callback,param){
 		var js = document.createElement('script'),
 		first = document.getElementsByTagName('script')[0],
 		uniqCallback = param ? param : 'cb'+new Date().getTime()+''+ Math.floor(Math.random() * 10e4);
-		
+
 		js.src = url + '?'+q.replace(/\?/g,'')+'&callback='+uniqCallback;
-		
+
 		global[uniqCallback] = function(json){
 			callback.call(this,json);
 			global[uniqCallback]=null;
 			js.parentNode.removeChild(js);
-			
+
 		};
 		try{
-			first.parentNode.insertBefore(js, first);	
-		} catch (e){ 
-			
+			first.parentNode.insertBefore(js, first);
+		} catch (e){
+
 			return false; }
 		return true;
 	};
@@ -74,19 +74,19 @@
 			tmRef = false,
 			isTimeout = false;
 		js.src = url;
-		
+
 		if(timeout){
-			tmRef = setTimeout(function(){ 
+			tmRef = setTimeout(function(){
 						isTimeout = true;
 						done.call(this);
-						
+
 					},timeout * 1000);}
 		js.onload = function(){
 			clearTimeout(tmRef);
 			isTimeout ? false : (isTimeout = true) && done.call(this);
 		};
 		if (js.readyState) {// readystate on js elem will exclude onload compatible browsers
-			js.onreadystatechange = function () { 
+			js.onreadystatechange = function () {
 				if (this.readyState == 'complete' || this.readyState == 'loaded') {
 					clearTimeout(tmRef);
 					isTimeout ? false : (isTimeout = true) && done.call(this);
@@ -100,7 +100,7 @@
          f.setAttribute("rel", "stylesheet");
          f.setAttribute("type", "text/css");
          f.setAttribute("href", url);
-         
+
          if(typeof f != "undefined"){
              document.getElementsByTagName("head")[0].appendChild(f);
          }
@@ -121,7 +121,7 @@
 				head.appendChild(style_sheet);
 			}
 		}
-			
+
 	};
 	// adapted form jQuery.fn.offset see http://ejohn.org/blog/getboundingclientrect-is-awesome/
 	var _getOffset = function (elem, doc, docElem) {
@@ -183,20 +183,20 @@
 		var toArr = Array.prototype.slice,
 			ret = false,
 			fallback = function(className){
-				var elArray = [], 
+				var elArray = [],
 					tmp = document.getElementsByTagName("*") ,
 					regex = new RegExp( '(^|s)' + className + '(s|$)');
-			
+
 				for ( var i = 0; i < tmp.length; i++ ) {
 					if ( regex.test(tmp[i].className) )	elArray.push(tmp[i]);
 				}
 				return elArray;
 			};
-			
+
 		if ('querySelectorAll' in document){
 			try {
 				ret = toArr.call(document.querySelectorAll('.'+className),0);
-				
+
 			} catch( e ) {
 				ret = fallback(className);
 			}
@@ -225,7 +225,7 @@
         dloaded = "DOMContentLoaded",
         bind = "addEventListener",
         ready = "onreadystatechange";
-        /^loade|c/.test(doc.readyState) && (hasRun = 1), 
+        /^loade|c/.test(doc.readyState) && (hasRun = 1),
         doc[bind] && doc[bind](dloaded, me = function () {
             doc.removeEventListener(dloaded, me, f), dispatch();
         }, f ), aElem.doScroll && doc.attachEvent(ready, d = function () {
@@ -247,55 +247,55 @@
             hasRun ? callback() : queue.push(callback)
         };
         return check;
-    }(document); 
+    }(document);
 	var _base64 = {
-	 
+
 		// private property
 		_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-	 
+
 		// public method for encoding
 		encode : function (input) {
 			var output = "";
 			var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
 			var i = 0;
-	 
+
 			input = _base64._utf8_encode(input);
-	 
+
 			while (i < input.length) {
-	 
+
 				chr1 = input.charCodeAt(i++);
 				chr2 = input.charCodeAt(i++);
 				chr3 = input.charCodeAt(i++);
-	 
+
 				enc1 = chr1 >> 2;
 				enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
 				enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
 				enc4 = chr3 & 63;
-	 
+
 				if (isNaN(chr2)) {
 					enc3 = enc4 = 64;
 				} else if (isNaN(chr3)) {
 					enc4 = 64;
 				}
-	 
+
 				output = output +
 				this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
 				this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
-	 
+
 			}
-	 
+
 			return output.replace(/\//g,'_');
 		},
-	 
+
 		// private method for UTF-8 encoding
 		_utf8_encode : function (string) {
 			string = string.replace(/\r\n/g,"\n");
 			var utftext = "";
-	 
+
 			for (var n = 0; n < string.length; n++) {
-	 
+
 				var c = string.charCodeAt(n);
-	 
+
 				if (c < 128) {
 					utftext += String.fromCharCode(c);
 				}
@@ -308,13 +308,13 @@
 					utftext += String.fromCharCode(((c >> 6) & 63) | 128);
 					utftext += String.fromCharCode((c & 63) | 128);
 				}
-	 
+
 			}
-	 
+
 			return utftext;
 		}
 	};
-	
+
 	if('upCloo' in global){
 	global.upCloo.utils = {
 				'curStyle'	: _getCurStyle,

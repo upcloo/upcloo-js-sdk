@@ -1,10 +1,10 @@
 (function(global){
-	
+
 	var upCloo = global.upCloo,
 		popOver = function (elem){return new popOver.prototype.init(elem);};
 
 		upCloo.utils.inherit(popOver,upCloo.widgets.base);
-		popOver.prototype.init = (function(superInit){ 
+		popOver.prototype.init = (function(superInit){
 			return function(elem){
 				this.widgetElemInDom = false;
 				this.isAnimate = false;
@@ -12,25 +12,25 @@
 				return superInit.apply(this,[elem]);
 			};
 		})(popOver.prototype.init);
-		
+
 		popOver.prototype._doScrollCheck =function(){
-			
+
 			var that = this;
 			var handle = function(e) {
-				
+
 				var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
 				nVScroll > that.options.popIn ? that.show() : false;
 				nVScroll < that.options.popOut ? that.hide() : false;
 			};
 			that.refScrollHandler = handle;
 			upCloo.utils.bind(window,'scroll',handle);
-			
+
 		};
 		popOver.prototype.hidden =function(){
 			return this.widgetElem.style.display == 'none';
 		};
 		popOver.prototype.show = function(){
-			
+
 			var that = this;
 			if(!this.isAnimate && this.hidden()){
 				this.isAnimate = true;
@@ -47,9 +47,9 @@
 					}
 				},50)
 			}
-			
+
 			this.widgetElem.style.display = 'block';
-			
+
 		};
 		popOver.prototype.hide = function(){
 			this.widgetElem.style.opacity = 0;
@@ -64,7 +64,7 @@
 				closeBtn = document.createElement('span'),
 				tmpUl = document.createElement('ul'),
 				count = 'limit' in this.options ? parseInt(this.options.limit,10) : 3 ;
-			
+
 			//pos
 			//upCloo.utils.addClass(tmpRoot,'upcloo-over-' + ('pos' in this.options ? this.options.pos : 'br'));
 			//theme
@@ -86,18 +86,18 @@
 				if(arr[i] === undefined)break;
 
 				tmpUl.appendChild(this._makeLink(arr[i]));
-		
+
 			}
 			tmpUl.setAttribute('id',this.uid+'_ul');
 			tmpRoot.appendChild(tmpUl);
 			if(!this.widgetElemInDom){
 				document.getElementsByTagName('body')[0].appendChild(this.widgetElem.parentNode.removeChild(this.widgetElem));
 				this.widgetElemInDom = true;
-			} 
+			}
 			this.hide();
 			this._doScrollCheck();
 		};
-		popOver.prototype.init.prototype = popOver.prototype;	
+		popOver.prototype.init.prototype = popOver.prototype;
 
 	if('upCloo' in global){
 		'widgets' in global.upCloo ? false : global.upCloo.widgets = {};
