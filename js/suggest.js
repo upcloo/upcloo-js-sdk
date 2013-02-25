@@ -1,6 +1,6 @@
 (function(global){
 	var upCloo = global.upCloo;
-	
+	var test = true;
 	var	_defaults = {
 			'widget':{},
 			'sendBeacon': true,
@@ -17,7 +17,7 @@
 			'popIn':400,
 			'popOut':100,
 			'defaultImage':'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-			'upClooSuggestBase':'o.upcloo.com',
+			'upClooSuggestBase':test ? 'dynamic.repository.upcloo.com' : 'o.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//r.upcloo.com/a',
 			'preRender':function(dE){return dE;}
@@ -33,7 +33,6 @@
 			var that = this,
 				b64 = upCloo.utils.base64,
 				hash = b64.encode(pageId);
-		
 			if(options){
 				for (var i in _defaults) {
 					if(_defaults.hasOwnProperty(i))

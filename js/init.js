@@ -1,18 +1,16 @@
 (function(global){
-var conf = upCloo.widgets;
+var conf = upCloo.widgets,test=true;
 	upCloo.utils.ready(function(){
 		var widgets = upCloo.utils.$byClass('upcloo-widget');
 		for(var i=0; i < widgets.length; i++)
 			(function(i){
 				var id =widgets[i].getAttribute('id');
-				
-				upCloo.utils.jsonp('//s.upcloo.com/'+conf[i].siteKey+'/'+id,'',function(options){
+				upCloo.utils.jsonp( (test ? '//opts.repository.upcloo.com' : '//s.upcloo.com') +'/'+ conf[i].siteKey+'/'+id,'',function(options){
 					upCloo.instances.push(new upCloo.suggest(conf[i].siteKey,
 							conf[i].permalink,
 							conf[i].vSiteKey,
 							options,
 							widgets[i]));
-					
 				},id);
 			})(i);
 	});
