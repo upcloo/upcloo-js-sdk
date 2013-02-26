@@ -1,5 +1,5 @@
 (function(global){
-var conf = upCloo.widgets,test=true;
+var conf = upCloo.widgets,test=false;
 	upCloo.utils.ready(function(){
 		var widgets = upCloo.utils.$byClass('upcloo-widget');
 		for(var i=0; i < widgets.length; i++)
