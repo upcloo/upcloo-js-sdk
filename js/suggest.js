@@ -1,6 +1,6 @@
 (function(global){
 	var upCloo = global.upCloo;
-	var test = true;
+	var test = false;
 	var	_defaults = {
 			'widget':{},
 			'sendBeacon': true,
