@@ -72,6 +72,19 @@
 		},
 		'setHasImage':function(yesno){
 			this.hasImage = yesno;
+		},
+		'_makeFooter':function(){
+			
+			var span = document.createElement('span'),
+				a = document.createElement('a'),
+				opts = this.options.footer;
+				a.setAttribute("href",opts.url);
+				a.setAttribute("style",opts.style);
+				a.innerHTML = opts.title;
+				upCloo.utils.addClass(span,'upcloo-footer');
+				span.appendChild(a);
+			return span;
+				
 		}
 	};
 	if('upCloo' in global){

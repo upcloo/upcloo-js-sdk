@@ -24,6 +24,9 @@
 			
 			tmpUl.setAttribute('id',this.uid+'_ul');
 			this.widgetElem.appendChild(tmpUl);
+			if(this.options.footer !== false ){
+				this.widgetElem.appendChild(this._makeFooter());
+			}
 			if(this.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
 				global._gaq.push(['_trackEvent', 'UpCloo-'+this.siteKey+(this.vSiteKey !== false ? '-'+this.vSiteKey : ''), 'show', 'inline-'+this.options.theme]);
 			}

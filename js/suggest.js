@@ -20,7 +20,8 @@
 			'upClooSuggestBase':test ? 'dynamic.repository.upcloo.com' : 'o.upcloo.com',
 			'upClooBeaconBase':'t.upcloo.com',
 			'upClooAssetEndpoint':'//r.upcloo.com/a',
-			'preRender':function(dE){return dE;}
+			'preRender':function(dE){return dE;},
+			'footer':false
 		};
 	var Suggest = function(siteKey,pageId,vSiteKey,options,domElem){
 			this.currentWidget = false;

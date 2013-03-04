@@ -90,6 +90,9 @@
 			}
 			tmpUl.setAttribute('id',this.uid+'_ul');
 			tmpRoot.appendChild(tmpUl);
+			if(this.options.footer !== false ){
+				tmpRoot.appendChild(this._makeFooter());
+			}
 			if(!this.widgetElemInDom){
 				document.getElementsByTagName('body')[0].appendChild(this.widgetElem.parentNode.removeChild(this.widgetElem));
 				this.widgetElemInDom = true;
