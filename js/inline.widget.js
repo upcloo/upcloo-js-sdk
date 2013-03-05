@@ -24,7 +24,7 @@
 			
 			tmpUl.setAttribute('id',this.uid+'_ul');
 			this.widgetElem.appendChild(tmpUl);
-			if(this.options.footer !== false ){
+			if('footer' in this.options && this.options.footer !== false ){
 				this.widgetElem.appendChild(this._makeFooter());
 			}
 			if(this.options.ga === true && '_gaq' in global && typeof global._gaq.push == 'function'){
