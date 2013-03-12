@@ -33,7 +33,7 @@
 				that = this;	
 				upCloo.utils.addClass(li,'upcloo-'+obj.type);
 				link.setAttribute('href',obj.url);
-				
+				if(isAdv)link.setAttribute("target","_blank");
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
 						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
@@ -79,11 +79,12 @@
 				a = document.createElement('a'),
 				opts = this.options.footer;
 				a.setAttribute("href",opts.url);
+				a.setAttribute("target","_blank");
 				a.setAttribute("style",opts.style);
 				a.innerHTML = opts.title;
-				upCloo.utils.addClass(span,'upcloo-footer');
-				span.appendChild(a);
-			return span;
+				upCloo.utils.addClass(a,'upcloo-footer');
+				//span.appendChild(a);
+			return a;
 				
 		}
 	};
