@@ -36,7 +36,7 @@
 				if(isAdv)link.setAttribute("target","_blank");
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
-						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type') ){
+						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type' && obj[elem] !== false) ){
 						var sub = false,
 							image = (elem == 'image' ? (obj[elem] ? obj[elem] : this.options.defaultImage) : false);
 						if(image !== false){

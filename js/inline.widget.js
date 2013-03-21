@@ -23,7 +23,8 @@
 			}
 			
 			tmpUl.setAttribute('id',this.uid+'_ul');
-			this.widgetElem.appendChild(tmpUl);
+			//this.widgetElem.appendChild(tmpUl);
+			this.widgetElem.appendChild(this.options.preRender.call(this,tmpUl));
 			if('footer' in this.options && this.options.footer !== false ){
 				this.widgetElem.appendChild(this._makeFooter());
 			}

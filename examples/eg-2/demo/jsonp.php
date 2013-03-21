@@ -6,6 +6,7 @@ $json = '[
         "image": "http://www.gabrielemittica.com/files/2012/09/immagini_contenuti/22/icona_t.png",
         "url": "http://www.gabrielemittica.com/cont/guide/cdn-comparison-best-content-delivery-network-services/22/1.html",
         "price": "100.84 $",
+        "cane":false,
         "subtitle": "Prezzo incredibile su www.gabrielemittica.com",
         "type": "adv-content"
     },
