@@ -62,9 +62,9 @@
 				link.appendChild(el);
 					upCloo.utils.bind(link,'mousedown',function(){
 						var vk = that.vSiteKey !== false ? '|' + that.vSiteKey : '';				
-						var trackUrl = obj.trackUrl + (that.options.ga === true ? '?ga=' + upCloo.utils.base64.encode( 'inline|' + that.options.theme + vk ) : '' );
-							if(isAdv)trackUrl += '/adv/true'
-							this.setAttribute('href',trackUrl );
+						var trackUrl = obj.trackUrl + ((!isAdv && that.options.ga === true) ? '?ga=' + upCloo.utils.base64.encode( 'inline|' + that.options.theme + vk ) : '' );
+						if(isAdv)trackUrl += '/adv'
+						this.setAttribute('href',trackUrl );
 					});
 				li.appendChild(link);
 				return li;
