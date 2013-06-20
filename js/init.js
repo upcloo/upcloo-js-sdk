@@ -1,5 +1,5 @@
 (function(global){
-var conf = upCloo.widgets,test=false;
+var conf = upCloo.widgets,test=true;
 	upCloo.utils.ready(function(){
 		var widgets = upCloo.utils.$byClass('upcloo-widget');
 		for(var i=0; i < widgets.length; i++)
@@ -9,7 +9,7 @@ var conf = upCloo.widgets,test=false;
 					upCloo.instances.push(new upCloo.suggest(conf[i].siteKey,
 							conf[i].permalink,
 							conf[i].vSiteKey,
-							options,
+							upCloo.utils.extend(options,conf[i].options),
 							widgets[i]));
 				},id);
 			})(i);

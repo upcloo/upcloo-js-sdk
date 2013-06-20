@@ -213,6 +213,16 @@
         }
         return clone;
 	}
+	var _extend = function(obj,ext){
+		
+        for(var i in ext) {
+            if(typeof(ext[i])=="object")
+                obj[i] = _extend(obj[i],ext[i]);
+            else
+                obj[i] = ext[i];
+        }
+        return obj;
+	}
 	var _ready = function (doc) {
         function dispatch() {
             hasRun = 1;
@@ -333,6 +343,7 @@
 				'ready'		: _ready,
 				'$byClass'  : _$byClass,
 				'clone'		: _clone,
+				'extend'	: _extend,
 				'inherit'	: _inherit
 		};
 	}
