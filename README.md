@@ -72,7 +72,7 @@ UpCloo JavaScript library
 First of all you have to install a list of dependencies
 
 ```
-$ npm install expresso uglify-js jshint recess -g
+$ npm install expresso uglify-js@1 jshint recess -g
 ```
 
 After that you can compile the library
