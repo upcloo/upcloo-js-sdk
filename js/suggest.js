@@ -70,7 +70,7 @@
 						renderer.setSiteKey(that.getSiteKey());
 						renderer.setVSiteKey(that.getVSiteKey());
 						renderer.setOptions(that.options);
-						renderer.setHasImage(that.options.showImage)
+						renderer.setHasImage(that.options.showImage);
 						upCloo.utils.cssInline(that.options.cssStyle);
 						renderer.render();
 					

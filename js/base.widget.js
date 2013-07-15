@@ -36,9 +36,10 @@
 				if(isAdv)link.setAttribute("target","_blank");
 				for(var elem in obj){
 					if( obj.hasOwnProperty(elem) && 
-						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type' && obj[elem] !== false) ){
+						(elem !== 'url' && elem !== 'trackUrl' && elem !== 'type' && (obj[elem] !== false || elem === 'image') ) ){
 						var sub = false,
 							image = (elem == 'image' ? (obj[elem] ? obj[elem] : this.options.defaultImage) : false);
+						
 						if(image !== false){
 							
 							if( !that.hasImage && !isAdv )continue;
@@ -56,7 +57,9 @@
 						el.appendChild(sub);
 					}
 				}
+				
 				if(that.hasImage || isAdv){
+					
 					link.appendChild(imageWrap);
 				}
 				link.appendChild(el);
