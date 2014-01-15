@@ -12,7 +12,7 @@ build:
 	@jshint js/*.js --config js/.jshintrc
 	@echo "Minify \"upcloo.js\" sourcecode"
 	@cat js/base.js js/utils.js js/suggest.js js/base.widget.js js/inline.widget.js js/popover.widget.js js/init.js > build/js/upcloo.all.js
-	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
+	@uglifyjs build/js/upcloo.all.js > build/js/upcloo.min.tmp.js
 	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 UpCloo Ltd.\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js
 	@echo "Compressing library...       ${CHECK} Done"
@@ -23,7 +23,7 @@ build:
 	@echo "\n\033[32m${HR}\033[39m"
 	@echo "\033[32mUpCloo JS SDK successfully built at ${DATE}.\033[39m"
 	@echo "\033[32m${HR}\033[39m\n"
-	
+
 no-hint:
 	@echo "\n${HR}"
 	@echo "Building UpCloo JS SDK...(skipping jshint)"
@@ -35,8 +35,8 @@ no-hint:
 	@echo "\n${HR}"
 	@echo "Minify \"upcloo.js\" sourcecode"
 	@cat js/base.js js/utils.js js/suggest.js js/base.widget.js js/inline.widget.js js/popover.widget.js js/init.js > build/js/upcloo.all.js
-	@cp  build/js/upcloo.all.js build/js/a.js 
-	@uglifyjs -nc build/js/upcloo.all.js > build/js/upcloo.min.tmp.js	
+	@cp  build/js/upcloo.all.js build/js/a.js
+	@uglifyjs build/js/upcloo.all.js > build/js/upcloo.min.tmp.js
 	@echo "/**\n * upcloo.js by @egm0121 @gmittica @wdalmut.\n * Copyright 2012 UpCloo Ltd.\n * http://opensource.org/licenses/MIT\n */" > build/js/copyright.js
 	@cat build/js/copyright.js build/js/upcloo.min.tmp.js > build/js/upcloo.min.js
 	@echo "Compressing library...       ${CHECK} Done\n"
@@ -46,13 +46,13 @@ no-hint:
 	@echo "Compiling and minifying javascript...       ${CHECK} Done"
 	@echo "\n\033[32m${HR}\033[39m"
 	@echo "\033[32mUpCloo JS SDK successfully built at ${DATE}.\033[39m"
-	@echo "\033[32m${HR}\033[39m\n"	
-	
+	@echo "\033[32m${HR}\033[39m\n"
+
 clean:
 	@rm build/js/*
 	@rmdir build/js
 	@rmdir build
-	
+
 force-clean:
 	echo "Force clean! PLEASE USE WITH CARE!"
 	rm -rf build
